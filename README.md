@@ -37,10 +37,10 @@ Everything is in **`assets/js/config.js`**:
 - `speakingReply`: the response time shown after a speaking enquiry.
 
 ## Deploying
-The folder is self-contained and uses only relative links, so it works at a sub-path or on its own domain. `CNAME` is set to `carriebowman.codebunny.net` for when it moves into its own repository on GitHub Pages.
+The site lives at the root of this repository and uses only relative links. For GitHub Pages, go to Settings → Pages and deploy from the `main` branch, root folder. `CNAME` is set to `carriebowman.codebunny.net`, so point that subdomain's DNS at GitHub Pages (a CNAME record to `bhavansh-arora.github.io`).
 
 ## Preview locally
 ```bash
 python3 -m http.server 8080
 ```
-Then open http://localhost:8080 from inside this folder.
+Then open http://localhost:8080 from the repository root.
