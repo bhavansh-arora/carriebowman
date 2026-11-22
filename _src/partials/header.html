@@ -1,0 +1,55 @@
+  <header class="site-header">
+    <div class="site-header__bar">
+      <a class="brand" href="index.html" aria-label="Carrie Bowman, home">
+        {{mark}}
+        <span class="brand__word"><span class="brand__name">Carrie Bowman</span><span class="brand__tag">MA · PCC · CLC</span></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="about.html" {{nav:about}}>About</a>
+        <a href="self-mastery.html" {{nav:self-mastery}}>Self-Mastery™</a>
+        <a href="limitless-mastery.html" {{nav:limitless}}>Limitless Mastery</a>
+        <a href="results.html" {{nav:results}}>Results</a>
+        <a href="speaking.html" {{nav:speaking}}>Speaking</a>
+        <a href="journal.html" {{nav:journal}}>Journal</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn--sun" href="clarity-call.html" data-magnetic><span class="btn__label">Request a Clarity Call</span><span class="btn__ic">{{icon:arrow}}</span></a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu"><span class="menu-toggle__text">Menu</span><span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span></button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu" inert>
+    <div class="menu__inner">
+      <nav aria-label="Menu">
+        <ul class="menu__list">
+          <li><a href="index.html" {{nav:home}}><small>01</small>Home</a></li>
+          <li><a href="about.html" {{nav:about}}><small>02</small>About <em>Carrie</em></a></li>
+          <li><a href="self-mastery.html" {{nav:self-mastery}}><small>03</small>Self-Mastery™</a></li>
+          <li><a href="limitless-mastery.html" {{nav:limitless}}><small>04</small>Limitless <em>Mastery</em></a></li>
+          <li><a href="results.html" {{nav:results}}><small>05</small>Client results</a></li>
+          <li><a href="speaking.html" {{nav:speaking}}><small>06</small>Speaking</a></li>
+          <li><a href="journal.html" {{nav:journal}}><small>07</small>Journal &amp; <em>free guide</em></a></li>
+        </ul>
+      </nav>
+      <div class="menu__side">
+        <div class="menu__card">
+          <div class="sun"></div>
+          <span class="label"><span class="dot"></span>Complimentary · 45 minutes</span>
+          <h3>The most powerful <em>45 minutes</em> of your week.</h3>
+          <p>Find the true source of what’s keeping you stuck, and leave with a clear roadmap forward.</p>
+          <a class="btn btn--sun" href="clarity-call.html"><span class="btn__label">Request a Clarity Call</span><span class="btn__ic">{{icon:arrow}}</span></a>
+        </div>
+        <div class="menu__contact">
+          <a href="mailto:Carrie@carriebowman.com">Carrie@carriebowman.com</a>
+          <span>Dallas, Texas · Online worldwide</span>
+          <div class="socials">
+            <a href="https://www.instagram.com/carriebowmanlifecoach/" target="_blank" rel="noopener" aria-label="Instagram">{{icon:instagram}}</a>
+            <a href="https://www.facebook.com/CarrieBowmanLifeCoach/" target="_blank" rel="noopener" aria-label="Facebook">{{icon:facebook}}</a>
+            <a href="https://www.linkedin.com/in/carrie-bowman" target="_blank" rel="noopener" aria-label="LinkedIn">{{icon:linkedin}}</a>
+            <a href="https://www.youtube.com/channel/UCzfjqIh8wFHipESshaTOk7Q" target="_blank" rel="noopener" aria-label="YouTube">{{icon:youtube}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

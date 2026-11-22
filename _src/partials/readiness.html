@@ -1,0 +1,79 @@
+    <section class="ready sec" id="readiness" data-theme="sun">
+      <div class="ready__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="ready__grid">
+          <div class="ready__intro">
+            <span class="label"><b>(R)</b><i></i>The Readiness Check</span>
+            <h2 class="h2" style="margin-top:28px" data-split>Which path is <em>yours?</em></h2>
+            <p class="lead" data-reveal>Four quick questions, about sixty seconds. You’ll see whether Self-Mastery™, private Limitless Mastery or a Clarity Call fits where you are right now. Your answers go straight into your call request, so you never have to explain yourself twice.</p>
+            <div class="ready__meta" data-reveal>
+              <span class="pill">{{icon:clock}}60 seconds</span>
+              <span class="pill">{{icon:lock}}Private</span>
+              <span class="pill">{{icon:route}}Personal result</span>
+            </div>
+          </div>
+
+          <div class="quiz" data-quiz data-reveal>
+            <div class="quiz__top">
+              <div class="quiz__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <span class="label quiz__count">Question <b data-q-num>1</b> of 4</span>
+            </div>
+
+            <div class="quiz__step" data-key="need">
+              <p class="quiz__q">What’s bringing you here <em>right now?</em></p>
+              <div class="options">
+                <button class="option" type="button" data-focus="career" data-score="sm limitless"><span class="option__k">A</span><span><b>My career is at a crossroads</b><span>I know it’s time to make a shift</span></span></button>
+                <button class="option" type="button" data-focus="purpose" data-score="sm sm"><span class="option__k">B</span><span><b>I’m stuck and unclear about what I want</b><span>“Is this really all there is?”</span></span></button>
+                <button class="option" type="button" data-focus="anxiety" data-score="sm"><span class="option__k">C</span><span><b>Anxiety, overwhelm or self-doubt run the show</b><span>I want to feel calm and in charge again</span></span></button>
+                <button class="option" type="button" data-focus="transition" data-score="limitless limitless"><span class="option__k">D</span><span><b>I’m in a pivotal moment and need deep support</b><span>Things feel urgent and I don’t want to go it alone</span></span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-key="tried">
+              <p class="quiz__q">What have you <em>already tried?</em></p>
+              <div class="options">
+                <button class="option" type="button" data-score="sm"><span class="option__k">A</span><span><b>Therapy</b><span>A great listener, but I’m tired of talking</span></span></button>
+                <button class="option" type="button" data-score="sm"><span class="option__k">B</span><span><b>Books, podcasts and apps</b><span>Lots of insight, very little real change</span></span></button>
+                <button class="option" type="button" data-score="limitless"><span class="option__k">C</span><span><b>Other coaches</b><span>Fix one area and another pops up</span></span></button>
+                <button class="option" type="button" data-score="call"><span class="option__k">D</span><span><b>Nothing yet</b><span>This is my first step</span></span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-key="support">
+              <p class="quiz__q">How much support do you <em>want?</em></p>
+              <div class="options">
+                <button class="option" type="button" data-score="sm sm"><span class="option__k">A</span><span><b>A proven structure with weekly 1:1 coaching</b><span>Trainings, live calls and private sessions</span></span></button>
+                <button class="option" type="button" data-score="limitless limitless"><span class="option__k">B</span><span><b>Carrie’s undivided attention, on demand</b><span>Support the moment I need it</span></span></button>
+                <button class="option" type="button" data-score="call call"><span class="option__k">C</span><span><b>I’m not sure yet</b><span>Help me work out what I need</span></span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-key="timing">
+              <p class="quiz__q">When do you want to <em>start?</em></p>
+              <div class="options">
+                <button class="option" type="button" data-value="now"><span class="option__k">A</span><span><b>Now. I’m ready.</b><span>If not now, when?</span></span></button>
+                <button class="option" type="button" data-value="soon"><span class="option__k">B</span><span><b>In the next month or two</b><span>I want to plan it in</span></span></button>
+                <button class="option" type="button" data-value="exploring" data-score="call"><span class="option__k">C</span><span><b>I’m exploring</b><span>Gathering information for now</span></span></button>
+              </div>
+            </div>
+
+            <div class="quiz__foot">
+              <button class="quiz__back" type="button" disabled>{{icon:arrow-left}}Back</button>
+              <span class="label">Tap an answer</span>
+            </div>
+
+            <div class="quiz__result" aria-live="polite">
+              <span class="label"><span class="dot"></span>Your best next step</span>
+              <h3 class="quiz__rtitle"></h3>
+              <p class="quiz__rtext"></p>
+              <div class="quiz__rtags"></div>
+              <div class="quiz__ractions">
+                <a class="btn btn--sun" href="clarity-call.html" data-result-send><span class="btn__label">Request my Clarity Call</span><span class="btn__ic">{{icon:arrow}}</span></a>
+                <a class="link" href="self-mastery.html" data-result-learn><span>Explore this path</span>{{icon:arrow-ur}}</a>
+                <button class="quiz__restart" type="button">Start over</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en-US" class="{{page.htmlclass}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{page.title}}</title>
+  <meta name="description" content="{{page.description}}">
+  <link rel="canonical" href="{{page.canonical}}">
+  <meta name="theme-color" content="#fbf8f3">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Carrie Bowman">
+  <meta property="og:title" content="{{page.title}}">
+  <meta property="og:description" content="{{page.description}}">
+  <meta property="og:url" content="{{page.canonical}}">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://carriebowman.codebunny.net/{{page.og_image}}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Carrie Bowman, Master Life Coach and trained therapist. Wake up and feel alive.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{page.title}}">
+  <meta name="twitter:description" content="{{page.description}}">
+  <meta name="twitter:image" content="https://carriebowman.codebunny.net/{{page.og_image}}">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/fraunces-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script>
+    (function(d){d.classList.add('js');var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;function ink(){var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content','#0b1622')}try{var pt=sessionStorage.getItem('cb_pt');if(pt&&!rm){d.style.backgroundColor='#0b1622';d.classList.add('pt-enter','no-preloader');ink();sessionStorage.removeItem('cb_pt');setTimeout(function(){d.classList.remove('pt-enter')},3200)}else if(d.classList.contains('no-preloader')||sessionStorage.getItem('cb_seen')||rm){d.classList.add('no-preloader')}else{d.classList.add('is-loading');ink()}sessionStorage.setItem('cb_seen','1')}catch(e){d.classList.add('no-preloader')}})(document.documentElement);
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Carrie Bowman, Master Life Coach & Trained Therapist",
+    "url": "https://carriebowman.codebunny.net/",
+    "image": "https://carriebowman.codebunny.net/assets/img/og-carrie-bowman.jpg",
+    "logo": "https://carriebowman.codebunny.net/assets/img/icon-512.png",
+    "email": "Carrie@carriebowman.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Dallas", "addressRegion": "TX", "addressCountry": "US" },
+    "areaServed": ["Dallas–Fort Worth", "United States", "Worldwide (online)"],
+    "founder": { "@type": "Person", "name": "Carrie Bowman", "jobTitle": "Master Life Coach & Trained Therapist, MA, PCC, CLC", "alumniOf": ["Columbia University", "University of Vermont", "The University of Texas at Austin"], "sameAs": ["https://www.linkedin.com/in/carrie-bowman", "https://www.instagram.com/carriebowmanlifecoach/", "https://www.facebook.com/CarrieBowmanLifeCoach/"] },
+    "makesOffer": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Self-Mastery™: a 12-week immersive coaching program" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limitless Mastery: intensive private life coaching" } }
+    ]
+  }
+  </script>
+</head>
+<body data-page="{{page.nav}}">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="loader" aria-hidden="true">
+    <div class="loader__stage">
+      <div class="loader__clip"><div class="loader__sun"></div></div>
+      <div class="loader__line"></div>
+      <div class="loader__word"><span>Wake</span> <span>up</span> <span>&amp;</span> <span>feel</span> <span><em>alive.</em></span></div>
+    </div>
+    <div class="loader__meta"><span>Carrie Bowman · Life coaching</span><span class="loader__count">00</span></div>
+  </div>
+
+  <div class="curtain" aria-hidden="true">
+    <div class="curtain__sun"></div>
+    <div class="curtain__ink">
+      <div class="curtain__inner">
+        <div class="curtain__orb"></div>
+        <span class="curtain__title">Carrie <em>Bowman</em></span>
+        <span class="curtain__kick">Wake up &amp; feel alive</span>
+      </div>
+    </div>
+  </div>
+  <script>try{if(document.documentElement.classList.contains('pt-enter')){var t=sessionStorage.getItem('cb_pt_t');if(t)document.querySelector('.curtain__title').innerHTML=t;}}catch(e){}</script>
+
+  {{> header}}
+
+  <main id="main">
+{{BODY}}
+  </main>
+
+  {{> footer}}
+
+  <div class="dock" aria-hidden="true">
+    <a class="btn btn--sun" href="clarity-call.html" data-book tabindex="-1"><span class="btn__label">Request a Clarity Call</span><span class="btn__ic">{{icon:arrow}}</span></a>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
+</body>
+</html>
