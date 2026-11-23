@@ -2041,3 +2041,6 @@ img[src*="/find-purpose."] { object-position: 55% 1%; }
   body:has(.chapters) main > section:not(.hero-panel) .wrap { padding-left: max(var(--gutter), 66px); }
 }
 .chapters__now { height: 190px; letter-spacing: .13em; }
+/* Button hover fill grows behind the label: the icon must not form its own layer,
+   or its expanding circle is painted over the text */
+.btn__ic { z-index: auto; }
