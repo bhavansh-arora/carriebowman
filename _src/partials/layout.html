@@ -54,13 +54,18 @@
 <body data-page="{{page.nav}}">
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Intro: two "eyelids". The same line sits centred on the seam in both halves,
+       so when a hairline of light slices across and the halves part, the word tears open. -->
   <div class="loader" aria-hidden="true">
-    <div class="loader__stage">
-      <div class="loader__clip"><div class="loader__sun"></div></div>
-      <div class="loader__line"></div>
-      <div class="loader__word"><span>Wake</span> <span>up</span> <span>&amp;</span> <span>feel</span> <span><em>alive.</em></span></div>
+    <div class="loader__half loader__half--top">
+      <div class="loader__meta loader__meta--top"><span>Carrie Bowman</span><span>Master Life Coach &amp; Trained Therapist</span></div>
+      <div class="loader__word"><span class="loader__mask"><span class="w">Wake</span> <span class="w"><em>up.</em></span></span></div>
     </div>
-    <div class="loader__meta"><span>Carrie Bowman · Life coaching</span><span class="loader__count">00</span></div>
+    <div class="loader__half loader__half--bottom">
+      <i class="loader__seam"></i>
+      <div class="loader__word"><span class="loader__mask"><span class="w">Wake</span> <span class="w"><em>up.</em></span></span></div>
+      <div class="loader__meta loader__meta--bottom"><span>Dallas &amp; online</span><span class="loader__count">00</span></div>
+    </div>
   </div>
 
   <div class="curtain" aria-hidden="true">

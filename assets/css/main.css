@@ -258,17 +258,31 @@ figure, blockquote { margin: 0; }
 /* ---------- 6. Chrome ---------- */
 
 /* Loader */
-.loader { position: fixed; inset: 0; z-index: 200; background: var(--ink); color: var(--cream); display: grid; place-items: center; overflow: hidden; }
+/* Intro: two "eyelids" that open. The same line sits centred on the seam in both
+   halves, so when a hairline of light slices across and the halves part, it tears open. */
+.loader { position: fixed; inset: 0; z-index: 200; color: var(--cream); pointer-events: auto; }
 html:not(.is-loading) .loader { display: none; }
-.loader__stage { position: relative; width: min(560px, 86vw); aspect-ratio: 2 / 1; }
-.loader__sun { position: absolute; left: 50%; bottom: 0; width: 42%; aspect-ratio: 1; margin-left: -21%; border-radius: 50%; background: var(--sun-disc); transform: translateY(104%); box-shadow: 0 0 120px 20px rgba(245, 165, 36, .35), 0 0 260px 60px rgba(238, 106, 44, .18); will-change: transform; }
-/* Clips only below the horizon line, so the sun's glow isn't boxed in */
-.loader__clip { position: absolute; inset: 0; clip-path: inset(-400% -400% 0 -400%); }.loader__line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line-d2); transform: scaleX(0); transform-origin: left; }
-.loader__word { position: absolute; left: 0; right: 0; top: calc(100% + 34px); text-align: center; font-size: clamp(28px, 4vw, 46px); font-weight: 720; letter-spacing: -.035em; line-height: 1; overflow: hidden; padding-bottom: .1em; }
-.loader__word span { display: inline-block; transform: translateY(110%); }
-.loader__word em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--sun); }
-.loader__meta { position: absolute; left: var(--gutter); right: var(--gutter); bottom: max(28px, env(safe-area-inset-bottom)); display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(246, 240, 230, .55); }
+.loader__half { position: absolute; left: 0; right: 0; height: 50.2%; background: var(--ink); overflow: hidden; will-change: transform; }
+.loader__half--top { top: 0; }
+.loader__half--bottom { bottom: 0; height: 50%; }
+.loader__half--top { background: radial-gradient(70% 120% at 50% 100%, var(--ink-2), var(--ink) 70%); }
+.loader__half--bottom { background: radial-gradient(70% 120% at 50% 0%, var(--ink-2), var(--ink) 70%); }
+.loader__word { position: absolute; left: 0; right: 0; text-align: center; transform: translateY(-50%); font-size: clamp(66px, 13vw, 216px); font-weight: 760; letter-spacing: -.055em; line-height: .9; font-stretch: 104%; white-space: nowrap; }
+.loader__half--top .loader__word { top: calc(100% / 50.2 * 50); }
+.loader__half--bottom .loader__word { top: 0; }
+.loader__mask { display: inline-block; overflow: hidden; padding: .08em .1em .16em; vertical-align: top; }
+.loader__word .w { display: inline-block; transform: translateY(112%); will-change: transform; }
+.loader__word em { font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.03em; font-stretch: 100%; padding-right: .06em; background: var(--sunrise); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.loader__seam { position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 1px; transform: scaleX(0); background: linear-gradient(90deg, transparent, rgba(238, 106, 44, .85) 22%, #ffe1a1 50%, rgba(238, 106, 44, .85) 78%, transparent); box-shadow: 0 0 6px rgba(245, 165, 36, .55); }
+.loader__meta { position: absolute; left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; gap: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(246, 240, 230, .5); opacity: 0; transition: opacity .9s ease .35s; }
+.loader__meta--top { top: max(30px, env(safe-area-inset-top)); }
+.loader__meta--bottom { bottom: max(30px, env(safe-area-inset-bottom)); }
+html.loader-go .loader__meta { opacity: 1; }
 .loader__count { color: var(--sun); font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) {
+  .loader__meta { font-size: 10px; }
+  .loader__meta--top span:last-child { display: none; }
+}
 
 /* Page-change curtain */
 .curtain { position: fixed; inset: 0; z-index: 190; pointer-events: none; visibility: hidden; }

@@ -118,26 +118,31 @@
     body.classList.add("is-loaded");
     document.dispatchEvent(new CustomEvent("site:loaded"));
   }
+  /* Intro, "eyes opening": "Wake up." rises on the seam between two dark halves, a
+     hairline of light slices across it, then the halves part like eyelids and the
+     hero comes into focus behind them. */
+  var SEAM_AT = 1050, OPEN_AT = 1550;
   if (loader && doc.classList.contains("is-loading") && !reduced) {
-    var lSun = $(".loader__sun", loader), lLine = $(".loader__line", loader), lCount = $(".loader__count", loader);
-    var lWords = $$(".loader__word span", loader);
+    var lWords = $$(".loader__word .w", loader);
+    var lSeam = $(".loader__seam", loader), lCount = $(".loader__count", loader);
     requestAnimationFrame(function () { requestAnimationFrame(function () {
-      lLine.style.transition = "transform 1.1s cubic-bezier(.65,0,.35,1)";
-      lLine.style.transform = "scaleX(1)";
-      lSun.style.transition = "transform 1.6s cubic-bezier(.22,1,.36,1) .3s";
-      lSun.style.transform = "translateY(0)";
-      lWords.forEach(function (w, i) {
-        w.style.transition = "transform 1.1s cubic-bezier(.22,1,.36,1) " + (0.55 + i * 0.07) + "s";
+      doc.classList.add("loader-go");
+      lWords.forEach(function (w, i) {                 /* both halves move in lockstep */
+        w.style.transition = "transform 1.15s cubic-bezier(.22,1,.36,1) " + (0.15 + (i % 2) * 0.09) + "s";
         w.style.transform = "translateY(0)";
       });
     }); });
-    var t0 = performance.now(), DUR = 1750;
+    setTimeout(function () {
+      lSeam.style.transition = "transform .5s cubic-bezier(.65,0,.35,1)";
+      lSeam.style.transform = "scaleX(1)";
+    }, SEAM_AT);
+    var t0 = performance.now();
     (function tick(now) {
-      var p = Math.min(1, (now - t0) / DUR);
+      var p = Math.min(1, (now - t0) / OPEN_AT);
       var e = 1 - Math.pow(1 - p, 3);
-      if (lCount) lCount.textContent = String(Math.round(e * 100)).padStart(2, "0");
+      if (lCount) lCount.textContent = String(Math.round(e * 100)).padStart(3, "0");
       if (p < 1) requestAnimationFrame(tick);
-      else setTimeout(finishLoader, 150);
+      else finishLoader();
     })(t0);
   } else {
     if (loader) loader.remove();
@@ -145,20 +150,20 @@
     if (!doc.classList.contains("pt-enter")) uiPaper();
     loaded();
   }
-  /* Once the sun has risen, the loader lifts away like the page-change curtain,
-     taking its sun with it. No sun on the site ever fades or scales: a translucent
-     disc over navy turns muddy, and a swelling one looks cheap. */
+  /* The eyelids open: top half up, bottom half down, tearing the word along the seam */
   function finishLoader() {
-    loader.style.transition = "transform 1.1s cubic-bezier(.76,0,.24,1), border-radius 1.1s cubic-bezier(.76,0,.24,1)";
-    loader.style.borderRadius = "0 0 48px 48px";
-    loader.style.transform = "translateY(-100%)";
+    var open = "transform 1.2s cubic-bezier(.83,0,.17,1)";
+    var top = $(".loader__half--top", loader), bottom = $(".loader__half--bottom", loader);
+    top.style.transition = open; bottom.style.transition = open;
+    top.style.transform = "translateY(-101%)";
+    bottom.style.transform = "translateY(101%)";
     loader.style.pointerEvents = "none";
-    setTimeout(loaded, 250);      /* the hero starts rising as the screen lifts */
-    setTimeout(uiPaper, 500);
+    setTimeout(loaded, 220);      /* the hero comes into focus as the halves part */
+    setTimeout(uiPaper, 600);
     setTimeout(function () {
-      doc.classList.remove("is-loading");
+      doc.classList.remove("is-loading", "loader-go");
       if (loader.parentNode) loader.parentNode.removeChild(loader);
-    }, 1200);
+    }, 1350);
   }
 
   /* ---------- Cursor ---------- */

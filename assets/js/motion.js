@@ -146,20 +146,27 @@
       heroSplits.forEach(function (el) { gsap.set(words(el), { yPercent: 120 }); });
       if (heroBits.length) gsap.set(heroBits, { autoAlpha: 0, y: 30 });
       if (pops.length) gsap.set(pops, { autoAlpha: 0, y: 36, scale: .92 });
-      /* Sun discs never fade or scale (a translucent sun over navy looks muddy,
-         a swelling one looks cheap). The full-size hero sun just rises gently into place. */
+      /* The hero sun is a still backdrop: it never moves, fades or scales on entry.
+         Only its faint ring lines fade in around it. */
       var sunLines = sunwrap ? $$(".rings, .rays", sunwrap) : [];
       if (sunLines.length) gsap.set(sunLines, { autoAlpha: 0 });
-      if (sunwrap) gsap.set(sunwrap, { y: 90 });
       /* Carrie never fades either (a see-through figure over the sun looks ghostly).
          On Home she rises up from below the frame; elsewhere she's revealed head-first. */
       var riseFromEdge = !!(rise && rise.closest(".hero"));
       if (rise) gsap.set(rise, riseFromEdge ? { yPercent: 100 } : { yPercent: 12, clipPath: "inset(0% 0% 100% 0%)" });
       if (heroMedia.length) gsap.set(heroMedia, { clipPath: "inset(100% 0% 0% 0% round 28px)" });
 
+      /* After the "eyes opening" intro, the hero comes into focus: a slight settle
+         everywhere, plus blur-to-sharp on desktop where it stays smooth. */
+      var focusEls = mode === "loader" ? $$(".hero__bg, .hero__inner", root) : [];
+      var focusBlur = window.matchMedia("(min-width: 1025px)").matches;
+      if (focusEls.length) gsap.set(focusEls, focusBlur ? { scale: 1.07, filter: "blur(16px)" } : { scale: 1.07 });
+
       function playHero() {
         var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-        if (sunwrap) tl.to(sunwrap, { y: 0, duration: 2.4 }, 0);
+        if (focusEls.length) tl.to(focusEls, focusBlur
+          ? { scale: 1, filter: "blur(0px)", duration: 1.8, clearProps: "transform,filter" }
+          : { scale: 1, duration: 1.8, clearProps: "transform" }, 0);
         if (sunLines.length) tl.to(sunLines, { autoAlpha: 1, duration: 2, ease: "power2.out" }, 0.3);
         if (rise) tl.to(rise, riseFromEdge ? { yPercent: 0, duration: 2 } : { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut" }, 0.2);
         heroSplits.forEach(function (el, i) {
