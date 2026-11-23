@@ -1974,3 +1974,13 @@ section.has-art { position: relative; isolation: isolate; overflow: clip; }
   [data-theme="dark"] .m-dots i { background: var(--line-d2); }
   [data-theme="dark"] .m-dots i.is-on { background: var(--sun); }
 }
+/* Path cards: crop from near the top so faces are never cut; tags sit at the bottom, clear of faces */
+.path__media img { object-position: 50% 3%; }
+.path__media img[src*="chair-black"] { object-position: 50% 0%; }
+.path__media .pill { top: auto; bottom: 14px; }
+/* Tablet: the featured path card's photo fills the card instead of setting its height,
+   so the text column has no empty band */
+@media (max-width: 1180px) and (min-width: 761px) {
+  .path--feature .path__media { min-height: 340px; }
+  .path--feature .path__media img { position: absolute; inset: 0; }
+}
