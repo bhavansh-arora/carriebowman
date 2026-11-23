@@ -247,11 +247,11 @@
       var hSwash = heroEl ? buildSwash(heroEl) : null;
 
       /* Initial (hidden) states. The hero sun itself never moves, fades or scales. */
-      heroSplits.forEach(function (el) { gsap.set(words(el), heroEl ? { yPercent: 120, rotate: 5, transformOrigin: "0% 100%" } : { yPercent: 120 }); });
+      heroSplits.forEach(function (el) { gsap.set(words(el), heroEl ? { yPercent: 150, rotate: 5, transformOrigin: "0% 100%" } : { yPercent: 150 }); });
       if (heroBits.length) gsap.set(heroBits, { autoAlpha: 0, y: 30 });
       if (heroEl) {
         if (hLabel) gsap.set(hLabel, { autoAlpha: 0, y: 12 });
-        if (hLead) gsap.set(words(hLead), { yPercent: 120 });
+        if (hLead) gsap.set(words(hLead), { yPercent: 150 });
         if (hBtns.length) gsap.set(hBtns, { autoAlpha: 0, y: 26 });
         if (hFoot) gsap.set(hFoot, { autoAlpha: 0, y: 18 });
         if (hFaces.length) gsap.set(hFaces, { autoAlpha: 0, scale: .4 });
@@ -348,7 +348,7 @@
       /* ---------- Split headings on scroll ---------- */
       $$("[data-split]", root).forEach(function (el) {
         if (heroSplits.indexOf(el) > -1) return;
-        gsap.set(words(el), { yPercent: 120 });
+        gsap.set(words(el), { yPercent: 150 });
         ST.create({ trigger: el, start: "top 92%", once: true, onEnter: function () {
           gsap.to(words(el), { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: 0.05, onComplete: function () { doneLines(el); } });
         } });
