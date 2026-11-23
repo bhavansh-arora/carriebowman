@@ -64,6 +64,13 @@
           });
         } else if (child.nodeType === 1) {
           if (child.tagName === "BR") { target.appendChild(child.cloneNode()); return; }
+          if (child.classList.contains("h-pill")) {
+            var pm = document.createElement("span");
+            pm.className = "split-line"; pm.style.display = "inline-block"; pm.style.verticalAlign = "middle";
+            var pi = document.createElement("span"); pi.style.display = "inline-block";
+            pi.appendChild(child.cloneNode(true)); pm.appendChild(pi); target.appendChild(pm);
+            return;
+          }
           if (child.classList.contains("row") || child.classList.contains("tm")) {
             var row = child.cloneNode(false);
             if (child.classList.contains("tm")) { row.textContent = child.textContent; target.appendChild(row); return; }
@@ -421,11 +428,13 @@
         var pin = sec.querySelector(".hscroll__pin");
         var track = sec.querySelector(".hscroll__track");
         var bar = sec.querySelector(".hscroll__bar i");
+        var host = sec.closest(".hscroll-wrap") || sec; /* margin-free wrapper, so pinning never widens the page */
         mm.add("(min-width: 1025px)", function () {
           var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth + 40); };
           gsap.to(track, {
             x: function () { return -dist(); }, ease: "none",
-            scrollTrigger: { trigger: pin, start: "center center", end: function () { return "+=" + dist(); }, pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1,
+            /* Pin the whole panel (heading, cards and progress bar together). */
+            scrollTrigger: { trigger: host, pin: host, start: function () { return host.offsetHeight > window.innerHeight ? "bottom bottom" : "center center"; }, end: function () { return "+=" + dist(); }, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1,
               onUpdate: function (self) { if (bar) bar.style.transform = "scaleX(" + self.progress + ")"; } }
           });
         });
@@ -445,6 +454,31 @@
       $$(".journey", root).forEach(function (j) {
         var fill = j.querySelector(".journey__fill");
         if (fill) gsap.to(fill, { scaleY: 1, ease: "none", scrollTrigger: { trigger: j, start: "top 70%", end: "bottom 60%", scrub: true } });
+      });
+
+      /* About: the sticky photo shows which chapter you're reading */
+      $$(".journey-grid", root).forEach(function (g) {
+        var now = g.querySelector(".journey-media__now");
+        if (!now) return;
+        var nB = now.querySelector("[data-jnow]"), nN = now.querySelector("[data-jnum]"), nL = now.querySelector("[data-jlabel]");
+        var steps = $$(".jstep", g), cur = 0, swapT;
+        function setStep(i) {
+          if (i === cur) return;
+          cur = i;
+          var lab = steps[i].querySelector("small");
+          now.style.setProperty("--jp", ((i + 1) / steps.length).toFixed(3));
+          now.classList.add("is-swap");
+          clearTimeout(swapT);
+          swapT = setTimeout(function () {
+            nB.textContent = (i < 9 ? "0" : "") + (i + 1);
+            nN.textContent = i + 1;
+            if (lab) nL.textContent = lab.textContent;
+            now.classList.remove("is-swap");
+          }, 200);
+        }
+        steps.forEach(function (s, i) {
+          ST.create({ trigger: s, start: "top 62%", end: "bottom 62%", onToggle: function (self) { if (self.isActive) setStep(i); } });
+        });
       });
 
       /* 3D tilt */
