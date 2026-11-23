@@ -1661,3 +1661,168 @@ body[data-page="call"] .fab { display: none; }
   .split--top:has(.split-media) .stickers { margin: auto 0; padding-block: 28px; }
 }
 @media (max-width: 560px) { .sticker { white-space: normal; } }
+
+/* ---------- 14. Card graphics ----------
+   Plain cards get a quiet, on-brand graphic behind their content: sunrise rays,
+   ripple rings, dot grids and the rising-sun mark. All static CSS (no images to load),
+   drawn on a ::after layer below the text. */
+:root {
+  --art-mark-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 132' fill='none' stroke='%230b1622' stroke-opacity='0.13' stroke-width='1.3' stroke-linecap='round'%3E%3Cpath d='M38 84a62 62 0 0 1 124 0M60 84a40 40 0 0 1 80 0M169.5 65.4L186.9 60.7M162.4 48.0L177.9 39.0M150.9 33.1L163.6 20.4M136.0 21.6L145.0 6.1M118.6 14.5L123.3 -2.9M100.0 12.0L100.0 -6.0M81.4 14.5L76.7 -2.9M64.0 21.6L55.0 6.1M49.1 33.1L36.4 20.4M37.6 48.0L22.1 39.0M30.5 65.4L13.1 60.7M6 84h188M28 98h144M52 112h96M76 126h48'/%3E%3C/svg%3E");
+  --art-mark-cream: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 132' fill='none' stroke='%23f6f0e6' stroke-opacity='0.16' stroke-width='1.3' stroke-linecap='round'%3E%3Cpath d='M38 84a62 62 0 0 1 124 0M60 84a40 40 0 0 1 80 0M169.5 65.4L186.9 60.7M162.4 48.0L177.9 39.0M150.9 33.1L163.6 20.4M136.0 21.6L145.0 6.1M118.6 14.5L123.3 -2.9M100.0 12.0L100.0 -6.0M81.4 14.5L76.7 -2.9M64.0 21.6L55.0 6.1M49.1 33.1L36.4 20.4M37.6 48.0L22.1 39.0M30.5 65.4L13.1 60.7M6 84h188M28 98h144M52 112h96M76 126h48'/%3E%3C/svg%3E");
+  --art-ink: rgba(11, 22, 34, .075);
+  --art-ember: rgba(210, 69, 63, .11);
+  --art-sun: rgba(255, 179, 138, .16);
+}
+.voice, .bring__item, .sign, .tcard { position: relative; }
+.oside, .outcomes--grid li, .bento__item, .bring__item, .card, .voice, .arc__phase, .glimpse__f, .sign, .tcard { isolation: isolate; overflow: hidden; }
+.oside:not(.oside--photo)::after, .outcomes--grid li:not(.outcomes__cta)::after, .bento__item:not(.bento__item--photo)::after,
+.bring__item::after, .card::after, .voice::after, .arc__phase::after, .glimpse__f::after, .sign::after, .tcard::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  transition: transform 1.2s var(--ease);
+}
+
+/* Sunrise rays fanning from a corner (Home "other side" cards) */
+.oside:not(.oside--photo)::after {
+  background:
+    repeating-conic-gradient(from 0deg at 0% 100%, var(--art-sun) 0deg 1deg, transparent 1deg 8deg),
+    radial-gradient(75% 60% at 0% 100%, rgba(255, 126, 95, .26), transparent 70%);
+  -webkit-mask-image: radial-gradient(130% 110% at 0% 100%, #000 10%, transparent 72%);
+  mask-image: radial-gradient(130% 110% at 0% 100%, #000 10%, transparent 72%);
+  transform-origin: 0 100%;
+}
+.oside--sun::after {
+  background: repeating-conic-gradient(from 0deg at 100% 100%, rgba(11, 22, 34, .09) 0deg 1deg, transparent 1deg 8deg);
+  -webkit-mask-image: radial-gradient(130% 110% at 100% 100%, #000 10%, transparent 72%);
+  mask-image: radial-gradient(130% 110% at 100% 100%, #000 10%, transparent 72%);
+  transform-origin: 100% 100%;
+}
+.oside:hover::after { transform: scale(1.08); }
+
+/* Ripple rings around the number (outcome cards) */
+.outcomes--grid li:not(.outcomes__cta)::after {
+  background: repeating-radial-gradient(circle at 100% 0%, transparent 0 21px, var(--art-ember) 21px 22px);
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 66%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 66%);
+  transform-origin: 100% 0;
+}
+[data-theme="dark"] .outcomes--grid li:not(.outcomes__cta)::after {
+  background: repeating-radial-gradient(circle at 100% 0%, transparent 0 21px, var(--art-sun) 21px 22px), radial-gradient(60% 50% at 100% 0%, rgba(255, 126, 95, .16), transparent 70%);
+}
+.outcomes--grid li:hover::after { transform: scale(1.12); }
+.outcomes__cta a::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+  background: repeating-conic-gradient(from 0deg at 100% 100%, rgba(11, 22, 34, .08) 0deg 1deg, transparent 1deg 8deg);
+  -webkit-mask-image: radial-gradient(120% 110% at 100% 100%, #000 10%, transparent 72%); mask-image: radial-gradient(120% 110% at 100% 100%, #000 10%, transparent 72%); }
+.outcomes__cta a { isolation: isolate; }
+
+/* The rising-sun mark as a watermark (what's-included boxes) */
+.bento__item:not(.bento__item--photo)::after {
+  background: var(--art-mark-ink) no-repeat right -36px bottom -30px / min(78%, 340px) auto,
+    radial-gradient(55% 45% at 100% 100%, rgba(255, 155, 115, .14), transparent 70%);
+  transform-origin: 100% 100%;
+}
+.bento__item--dark::after {
+  background: var(--art-mark-cream) no-repeat right -36px bottom -30px / min(78%, 340px) auto,
+    radial-gradient(60% 50% at 100% 100%, rgba(255, 126, 95, .24), transparent 70%) !important;
+}
+.bento__item--sun::after {
+  background: repeating-radial-gradient(circle at 100% 100%, transparent 0 21px, rgba(11, 22, 34, .09) 21px 22px) !important;
+  -webkit-mask-image: radial-gradient(circle at 100% 100%, #000 0, transparent 70%); mask-image: radial-gradient(circle at 100% 100%, #000 0, transparent 70%);
+}
+.bento__item:hover::after { transform: scale(1.06); }
+
+/* Rings from the corner (Speaking "what I bring") */
+.bring__item::after {
+  background: repeating-radial-gradient(circle at 100% 100%, transparent 0 26px, var(--art-sun) 26px 27px),
+    radial-gradient(70% 60% at 100% 100%, rgba(255, 126, 95, .22), transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 100% 100%, #000 0, transparent 75%);
+  mask-image: radial-gradient(circle at 100% 100%, #000 0, transparent 75%);
+  transform-origin: 100% 100%;
+}
+.bring__item:hover::after { transform: scale(1.1); }
+
+/* Dot grid + glow (format cards) */
+.card::after {
+  background: radial-gradient(var(--art-ember) 1.3px, transparent 1.8px) 0 0 / 15px 15px;
+  -webkit-mask-image: radial-gradient(70% 70% at 100% 0%, #000 0, transparent 70%);
+  mask-image: radial-gradient(70% 70% at 100% 0%, #000 0, transparent 70%);
+}
+.card::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(60% 55% at 100% 100%, rgba(255, 155, 115, .16), transparent 70%); }
+
+/* A large ghosted quotation mark (voice cards) */
+.voice::after {
+  content: "\201D"; inset: auto 10px -.62em auto; font-family: var(--f-serif); font-style: italic; font-weight: 400;
+  font-size: 220px; line-height: 1; color: rgba(210, 69, 63, .09); letter-spacing: 0;
+}
+
+/* Small dots in the corner (sign cards) */
+.sign::after {
+  background: radial-gradient(var(--art-ink) 1.2px, transparent 1.7px) 0 0 / 13px 13px;
+  -webkit-mask-image: radial-gradient(45% 90% at 100% 50%, #000 0, transparent 75%);
+  mask-image: radial-gradient(45% 90% at 100% 50%, #000 0, transparent 75%);
+}
+
+/* Rings behind the quote mark (testimonial cards) */
+.tcard::after {
+  background: repeating-radial-gradient(circle at 100% 0%, transparent 0 18px, var(--art-ink) 18px 19px);
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 34%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 34%);
+}
+[data-theme="dark"] .tcard::after, .tcard--dark::after { background: repeating-radial-gradient(circle at 100% 0%, transparent 0 18px, var(--art-sun) 18px 19px); }
+
+/* Glimpse cards cycle through the patterns */
+.glimpse:nth-child(3n+1) .glimpse__f::after {
+  background: repeating-radial-gradient(circle at 100% 0%, transparent 0 18px, var(--art-ember) 18px 19px);
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 60%); mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 60%);
+}
+.glimpse:nth-child(3n+2) .glimpse__f::after {
+  background: radial-gradient(var(--art-ember) 1.3px, transparent 1.8px) 0 0 / 14px 14px;
+  -webkit-mask-image: radial-gradient(75% 60% at 100% 0%, #000 0, transparent 70%); mask-image: radial-gradient(75% 60% at 100% 0%, #000 0, transparent 70%);
+}
+.glimpse:nth-child(3n) .glimpse__f::after {
+  background: repeating-conic-gradient(from 0deg at 100% 0%, var(--art-ember) 0deg 1deg, transparent 1deg 9deg);
+  -webkit-mask-image: radial-gradient(110% 90% at 100% 0%, #000 0, transparent 70%); mask-image: radial-gradient(110% 90% at 100% 0%, #000 0, transparent 70%);
+}
+
+/* 12 weeks: a sun that rises a little higher in each phase, cut by horizon lines like the logo */
+.arc__phase { --rise: 0px; }
+.arc__phase:nth-child(2) { --rise: 34px; }
+.arc__phase:nth-child(3) { --rise: 68px; }
+.arc__phase:nth-child(4) { --rise: 104px; }
+.arc__phase::after {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 9px, var(--paper) 9px 13px) right bottom / 100% 72px no-repeat,
+    radial-gradient(circle at 80% calc(100% + 46px - var(--rise)), #ffb38a 0, #ff8a68 44px, rgba(247, 118, 138, .9) 62px, rgba(247, 118, 138, 0) 63px),
+    radial-gradient(circle at 80% calc(100% + 46px - var(--rise)), rgba(255, 155, 115, .28) 0, transparent 120px);
+  opacity: .55;
+}
+.arc__phase:last-child::after {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 9px, var(--ink) 9px 13px) right bottom / 100% 72px no-repeat,
+    radial-gradient(circle at 80% calc(100% + 46px - var(--rise)), #ffb38a 0, #ff8a68 44px, rgba(247, 118, 138, .9) 62px, rgba(247, 118, 138, 0) 63px),
+    radial-gradient(circle at 80% calc(100% + 46px - var(--rise)), rgba(255, 155, 115, .3) 0, transparent 140px);
+  opacity: .8;
+}
+
+/* "Clarity" in the kinetic band was outline text with a transparent outline */
+.kinetic .outline { -webkit-text-stroke: 1.5px var(--ink); }
+[data-theme="dark"] .kinetic .outline { -webkit-text-stroke-color: rgba(246, 240, 230, .5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .oside::after, .outcomes--grid li::after, .bento__item::after, .bring__item::after { transition: none; }
+}
+/* Card graphics: placement tweaks */
+.voice::after { inset: -.1em 14px auto auto; font-size: 200px; color: rgba(210, 69, 63, .1); }
+.bento__item:not(.bento__item--photo)::after {
+  background: var(--art-mark-ink) no-repeat right -28px top 18px / min(56%, 230px) auto,
+    radial-gradient(55% 45% at 100% 0%, rgba(255, 155, 115, .16), transparent 70%);
+  transform-origin: 100% 0;
+}
+.bento__item--dark::after {
+  background: var(--art-mark-cream) no-repeat right -28px top 18px / min(56%, 230px) auto,
+    radial-gradient(60% 50% at 100% 0%, rgba(255, 126, 95, .26), transparent 70%) !important;
+}
+.arc__phase:last-child .sun { display: none; }
+.glimpse__f { --art-ember: rgba(210, 69, 63, .15); }
+.voice::after { inset: 10px 16px auto auto; font-size: 170px; line-height: .8; }
+.bento__item:not(.bento__item--photo)::after, .bento__item--dark::after { background-size: min(50%, 210px) auto, auto !important; }
+.voice::after { inset: 8px 22px auto auto; font-size: 150px; line-height: 1; }
