@@ -1938,3 +1938,39 @@ section.has-art { position: relative; isolation: isolate; overflow: clip; }
     radial-gradient(circle closest-side, rgba(255, 170, 135, .45) 0 2.2%, transparent 2.6%),
     repeating-conic-gradient(from 0deg, rgba(255, 190, 154, .14) 0deg .5deg, transparent .5deg 7.5deg); }
 .sec-art--dots i { background-image: radial-gradient(rgba(11, 22, 34, .17) 1.4px, transparent 2px); }
+
+/* ---------- 17. Touch and phone fixes ---------- */
+/* Touch screens keep :hover after a tap. Hover fills are for mouse users only,
+   otherwise a tapped button stays half-filled and hides its label. */
+@media (hover: none) {
+  .btn:hover, .btn--ghost:hover, [data-theme="dark"] .btn--ghost:hover { color: var(--fg); }
+  .btn--sun:hover { --fg: var(--ink); color: var(--ink); }
+  .btn:hover .btn__ic::before, .btn:hover .btn__ic svg { transform: none; }
+  .option:hover { transform: none; box-shadow: inset 0 0 0 1px var(--line); }
+  .outcomes--grid li:hover, .bento__item:hover::after, .oside:hover::after, .bring__item:hover::after, .outcomes--grid li:hover::after, .sticker:hover { transform: none; }
+}
+
+/* Cards: less empty space between the number/icon and the title */
+.bring__item { min-height: 280px; }
+.card__title { margin-top: clamp(30px, 3.6vw, 56px); }
+
+/* Phones: lists of points become swipe rows (next card peeks in; dots show where you are) */
+.m-dots { display: none; }
+@media (max-width: 760px) {
+  .m-scroll.m-scroll { display: flex; grid-template-columns: none; flex-wrap: nowrap; gap: 12px; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 10px; scroll-padding-inline: var(--gutter); border-top: 0; }
+  .m-scroll::-webkit-scrollbar { display: none; }
+  .m-scroll > * { flex: 0 0 min(84%, 340px); min-width: 0; margin: 0 !important; scroll-snap-align: start; }
+  .m-scroll > .path { flex-basis: min(86%, 340px); }
+  .m-scroll > .bring__item, .m-scroll > .card, .m-scroll > .arc__phase, .m-scroll > .bento__item { min-height: 0; }
+  .m-scroll > .bento__item--photo { min-height: 260px; }
+  .m-scroll > .arc__phase { min-height: 360px; }
+  .bring__item h3 { padding-top: 26px; }
+  .call-steps.m-scroll > li { border: 0; padding: 18px; border-radius: var(--radius); background: rgba(246, 240, 230, .05); box-shadow: inset 0 0 0 1px var(--line-d); }
+  .m-dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
+  .m-dots i { width: 6px; height: 6px; border-radius: 6px; background: var(--line-2); transition: width .4s var(--ease), background .3s; }
+  .m-dots i.is-on { width: 22px; background: var(--sun); }
+  [data-theme="dark"] .m-dots i { background: var(--line-d2); }
+  [data-theme="dark"] .m-dots i.is-on { background: var(--sun); }
+}

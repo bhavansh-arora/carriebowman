@@ -476,6 +476,28 @@
       onCleanup(function () { aio.disconnect(); });
     }
 
+    /* Phone swipe rows: a row of dots shows where you are */
+    $$(".m-scroll", root).forEach(function (row) {
+      var items = Array.prototype.slice.call(row.children);
+      if (items.length < 2) return;
+      var dots = document.createElement("div");
+      dots.className = "m-dots";
+      dots.setAttribute("aria-hidden", "true");
+      items.forEach(function () { dots.appendChild(document.createElement("i")); });
+      row.parentNode.insertBefore(dots, row.nextSibling);
+      var raf = 0;
+      var mark = function () {
+        raf = 0;
+        var max = row.scrollWidth - row.clientWidth;
+        var at = max > 0 ? Math.round(row.scrollLeft / max * (items.length - 1)) : 0;
+        Array.prototype.forEach.call(dots.children, function (d, k) { d.classList.toggle("is-on", k === at); });
+      };
+      var onScroll = function () { if (!raf) raf = requestAnimationFrame(mark); };
+      row.addEventListener("scroll", onScroll, { passive: true });
+      mark();
+      onCleanup(function () { row.removeEventListener("scroll", onScroll); if (dots.parentNode) dots.parentNode.removeChild(dots); });
+    });
+
     /* Magnetic buttons */
     if (finePointer && !reduced) {
       $$("[data-magnetic]", root).forEach(function (el) {
