@@ -1984,3 +1984,34 @@ section.has-art { position: relative; isolation: isolate; overflow: clip; }
   .path--feature .path__media { min-height: 340px; }
   .path--feature .path__media img { position: absolute; inset: 0; }
 }
+
+/* ---------- 18. Faces stay in frame ----------
+   Every cropped photo of a person is anchored on that person's face (generated from
+   measured face positions), so whatever shape a frame takes, the crop keeps the face
+   instead of cutting from the middle. Cut-outs are not cropped and are left alone. */
+img[src*="/mustard-laugh."] { object-position: 48% 8%; }
+img[src*="/mustard-gaze."] { object-position: 43% 5%; }
+img[src*="/chair-laugh."] { object-position: 55% 0%; }
+img[src*="/chair-black."] { object-position: 52% 3%; }
+img[src*="/blazer-hair."] { object-position: 46% 6%; }
+img[src*="/white-standing."] { object-position: 48% 0%; }
+img[src*="/white-sit."] { object-position: 53% 0%; }
+img[src*="/white-phone."] { object-position: 53% 4%; }
+img[src*="/sofa-wide."] { object-position: 21% 3%; }
+img[src*="/sofa-cup."] { object-position: 45% 3%; }
+img[src*="/mustard-hand."] { object-position: 51% 5%; }
+img[src*="/floor-writing."] { object-position: 55% 23%; }
+img[src*="/desk-think."] { object-position: 69% 0%; }
+img[src*="/desk-laptop."] { object-position: 66% 1%; }
+img[src*="/cup-laugh."] { object-position: 60% 0%; }
+img[src*="/cream-smile."] { object-position: 48% 6%; }
+img[src*="/chair-black-wide."] { object-position: 47% 3%; }
+img[src*="/blazer-down."] { object-position: 52% 0%; }
+img[src*="/work-anxiety."] { object-position: 16% 3%; }
+img[src*="/self-mastery-keys."] { object-position: 46% 6%; }
+img[src*="/self-esteem."] { object-position: 67% 12%; }
+img[src*="/realistic-goals."] { object-position: 51% 6%; }
+img[src*="/productive."] { object-position: 54% 0%; }
+img[src*="/positive-thinking."] { object-position: 75% 26%; }
+img[src*="/happy."] { object-position: 53% 0%; }
+img[src*="/find-purpose."] { object-position: 55% 1%; }
