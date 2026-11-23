@@ -502,6 +502,7 @@
     }, root);
 
     ST.refresh();
+    armFooter();
   }
 
   function destroy() {
@@ -509,10 +510,13 @@
     heroBusy = false;
     if (mm) { mm.revert(); mm = null; }
     if (ctx) { ctx.revert(); ctx = null; }
+    if (footST) { footST.kill(); footST = null; }
   }
 
-  /* Footer wordmark (outside <main>, once) */
+  /* Footer wordmark (outside <main>). Split once; the entrance is re-armed on every page
+     (see armFooter) so it plays each time you reach the bottom, on any page. */
   var word = document.querySelector(".footer__word");
+  var footLetters = [], footTl = null, footST = null, footReady = false;
   if (word && !word.dataset.split) {
     word.dataset.split = "1";
     var txt = word.textContent;
@@ -523,24 +527,44 @@
       else { s.className = "fw"; var i = document.createElement("i"); i.textContent = ch; s.appendChild(i); }
       word.appendChild(s);
     });
-    var letters = Array.prototype.slice.call(word.querySelectorAll(".fw i"));
-    /* rise in from the middle outwards */
-    gsap.fromTo(letters, { yPercent: 115 }, { yPercent: 0, duration: 1.5, ease: "expo.out", stagger: { each: 0.05, from: "center" },
-      scrollTrigger: { trigger: word, start: "top 96%", once: true } });
-    /* then a soft wave that follows the pointer: nearby letters lift and warm */
+    footLetters = Array.prototype.slice.call(word.querySelectorAll(".fw i"));
+    /* after the entrance, letters near the pointer lift and warm (anywhere in the footer) */
+    var foot = word.closest(".site-footer") || word;
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      var raf = 0, px = null;
+      var raf = 0, px = null, py = null;
       var paint = function () {
         raf = 0;
-        letters.forEach(function (l) {
+        if (!footReady) return;
+        var wr = word.getBoundingClientRect(), cy = wr.top + wr.height / 2;
+        var gy = py === null ? 0 : Math.max(0, 1 - Math.abs(py - cy) / 260);
+        footLetters.forEach(function (l) {
           var g = 0;
-          if (px !== null) { var r = l.getBoundingClientRect(); g = Math.max(0, 1 - Math.abs(px - (r.left + r.width / 2)) / 220); }
+          if (px !== null && gy > 0) { var r = l.getBoundingClientRect(); g = Math.max(0, 1 - Math.abs(px - (r.left + r.width / 2)) / 240) * gy; }
           l.style.setProperty("--g", g.toFixed(3));
         });
       };
-      word.addEventListener("pointermove", function (e) { px = e.clientX; if (!raf) raf = requestAnimationFrame(paint); });
-      word.addEventListener("pointerleave", function () { px = null; if (!raf) raf = requestAnimationFrame(paint); });
+      foot.addEventListener("pointermove", function (e) { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); });
+      foot.addEventListener("pointerleave", function () { px = py = null; if (!raf) raf = requestAnimationFrame(paint); });
     }
+  }
+  function armFooter() {
+    if (!footLetters.length) return;
+    if (footST) { footST.kill(); footST = null; }
+    if (footTl) { footTl.kill(); footTl = null; }
+    footReady = false;
+    word.classList.add("is-sweeping");
+    gsap.set(footLetters, { yPercent: 115, "--g": 0 });
+    footTl = gsap.timeline({ paused: true, onComplete: function () { footReady = true; word.classList.remove("is-sweeping"); } })
+      /* rise in from the middle outwards */
+      .to(footLetters, { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: { each: 0.045, from: "center" } }, 0)
+      /* then a warm wave sweeps across, left to right */
+      .to(footLetters, { "--g": 1, duration: 0.32, ease: "sine.out", stagger: 0.055 }, 0.85)
+      .to(footLetters, { "--g": 0, duration: 0.6, ease: "sine.inOut", stagger: 0.055 }, 1.17);
+    footST = ST.create({
+      trigger: word, start: "clamp(top 96%)",            /* clamp: reachable even on the shortest scroll */
+      onEnter: function () { word.classList.add("is-sweeping"); footTl.restart(); },
+      onLeaveBack: function () { footReady = false; word.classList.add("is-sweeping"); footTl.pause(0); }
+    });
   }
 
   window.CBMotion = { init: init, destroy: destroy, refresh: function () { ST.refresh(); } };

@@ -2139,3 +2139,4 @@ img[src*="/white-v."] { object-position: 30% 30%; }
 }
 @media (max-width: 760px) { .glimpse--wide { grid-column: auto; } }
 @media (max-width: 1180px) and (min-width: 761px) { .glimpse--wide:last-child, .glimpse--wide ~ .glimpse--wide { grid-column: auto; } }
+.footer__word.is-sweeping .fw i { transition: none; }
