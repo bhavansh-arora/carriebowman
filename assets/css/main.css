@@ -543,10 +543,6 @@ html.pt-covered body { overflow: hidden; }
 .cta-final .lead { margin: 32px auto 0; text-align: center; }
 .cta-final .actions { justify-content: center; margin-top: 44px; }
 /* dawn on the horizon: a wide arc of warm light rising from the bottom edge */
-.cta-final__sun { position: absolute; left: 50%; bottom: 0; width: min(1500px, 140vw); height: min(620px, 80vw); transform: translate(-50%, 48%); z-index: -1; }
-.cta-final__sun .sun { inset: 0; width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(50% 50% at 50% 50%, rgba(255, 186, 150, .95) 0%, rgba(255, 126, 95, .72) 22%, rgba(247, 118, 138, .46) 40%, rgba(182, 164, 255, .24) 58%, rgba(182, 164, 255, 0) 76%); }
-.cta-final__sun .rays { inset: -40% -10%; color: rgba(255, 150, 120, .16); width: 120%; height: 180%; }
-.cta-final__horizon { position: absolute; left: 0; right: 0; bottom: 0; height: 32%; background: linear-gradient(180deg, transparent, rgba(11, 22, 34, .0) 40%, rgba(11, 22, 34, .35)); z-index: -1; }
 .cta-final__note { display: flex; justify-content: center; gap: 10px 28px; flex-wrap: wrap; margin-top: 28px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(246, 240, 230, .6); }
 .cta-final__note span { display: inline-flex; align-items: center; gap: 8px; }
 .cta-final__note svg { width: 15px; height: 15px; color: var(--sun); }
@@ -1826,3 +1822,52 @@ body[data-page="call"] .fab { display: none; }
 .voice::after { inset: 10px 16px auto auto; font-size: 170px; line-height: .8; }
 .bento__item:not(.bento__item--photo)::after, .bento__item--dark::after { background-size: min(50%, 210px) auto, auto !important; }
 .voice::after { inset: 8px 22px auto auto; font-size: 150px; line-height: 1; }
+
+/* ---------- 15. Dawn (closing sections) ----------
+   One half-sun sitting exactly on the bottom edge. Rays, rings and glow all share its
+   centre, so everything is even and symmetric. Horizon lines cut the lower part of the
+   sun, like the logo. Scroll makes it rise (see motion.js). */
+.dawn { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; border-radius: inherit; --d: clamp(230px, 27vw, 420px); }
+.dawn > * { position: absolute; left: 50%; bottom: 0; border-radius: 50%; }
+.dawn__disc { width: var(--d); height: var(--d); margin: 0 0 calc(var(--d) / -2) calc(var(--d) / -2);
+  background: radial-gradient(circle at 50% 18%, #ffe6d6 0%, #ffbe9a 22%, #ff8a68 50%, #f7768a 76%, #c9a8ff 100%);
+  box-shadow: 0 0 0 1px rgba(255, 214, 194, .25) inset; }
+.dawn__sky { width: calc(var(--d) * 3.4); height: calc(var(--d) * 3.4); margin: 0 0 calc(var(--d) * -1.7) calc(var(--d) * -1.7);
+  background: radial-gradient(circle closest-side, rgba(255, 140, 105, .55) 0%, rgba(247, 118, 138, .3) 32%, rgba(140, 120, 240, .16) 58%, rgba(91, 75, 214, 0) 100%);
+  animation: dawn-breathe 7s ease-in-out infinite alternate; }
+.dawn__rings { width: calc(var(--d) * 3); height: calc(var(--d) * 3); margin: 0 0 calc(var(--d) * -1.5) calc(var(--d) * -1.5);
+  background: repeating-radial-gradient(circle, rgba(246, 240, 230, .13) 0 1px, transparent 1.5px calc(var(--d) * .14));
+  -webkit-mask-image: radial-gradient(circle closest-side, transparent 30%, #000 34%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(circle closest-side, transparent 30%, #000 34%, #000 55%, transparent 100%); }
+.dawn__rays { width: calc(var(--d) * 4.6); height: calc(var(--d) * 4.6); margin: 0 0 calc(var(--d) * -2.3) calc(var(--d) * -2.3);
+  background: repeating-conic-gradient(from 0deg, rgba(255, 190, 154, .2) 0deg .35deg, transparent .35deg 6deg);
+  -webkit-mask-image: radial-gradient(circle closest-side, transparent 23%, #000 27%, rgba(0, 0, 0, .6) 60%, transparent 96%);
+  mask-image: radial-gradient(circle closest-side, transparent 23%, #000 27%, rgba(0, 0, 0, .6) 60%, transparent 96%); }
+.dawn__lines { border-radius: 0; width: calc(var(--d) * 1.7); height: calc(var(--d) * .26); margin-left: calc(var(--d) * -.85);
+  background: repeating-linear-gradient(180deg, transparent 0 calc(var(--d) * .034), var(--ink) calc(var(--d) * .034) calc(var(--d) * .052));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); }
+@keyframes dawn-breathe { from { opacity: .82; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .dawn__sky { animation: none; } }
+
+/* Footer wordmark: letters rise in, then lift in a wave that follows the pointer */
+.footer__word .fw { display: inline-block; overflow: hidden; vertical-align: top; padding: .06em 0 .04em; margin: -.06em 0 -.04em; }
+.footer__word .fw i { display: inline-block; font-style: normal; color: color-mix(in srgb, var(--sun-hi) calc(var(--g, 0) * 100%), var(--cream)); translate: 0 calc(var(--g, 0) * -12%); transition: translate .7s var(--ease), color .6s; }
+.footer__word .fw--sp { width: .42em; }
+
+/* Limitless hero: copy centred against a photo sized to the screen, so the whole hero
+   (facts row included) fits the first view without an empty band above the copy */
+.hero-panel .page-hero { padding-top: calc(var(--header-h) + clamp(44px, 4.6vw, 76px)); }
+@media (min-width: 1025px) {
+  .hero-panel .page-hero__grid:has(.page-hero__media) { align-items: center; }
+  .hero-panel .page-hero__media { width: clamp(300px, calc((100svh - 360px) * .8), 500px); justify-self: end; }
+  .hero-panel .smhero__facts { margin-top: clamp(40px, 4vw, 64px); }
+}
+/* Keep the rays and rings around the sun, clear of the headline */
+.dawn__rays { background: repeating-conic-gradient(from 0deg, rgba(255, 190, 154, .17) 0deg .35deg, transparent .35deg 7.5deg);
+  -webkit-mask-image: radial-gradient(circle closest-side, transparent 23%, #000 27%, rgba(0, 0, 0, .45) 44%, transparent 62%);
+  mask-image: radial-gradient(circle closest-side, transparent 23%, #000 27%, rgba(0, 0, 0, .45) 44%, transparent 62%); }
+.dawn__rings { background: repeating-radial-gradient(circle, rgba(246, 240, 230, .12) 0 1px, transparent 1.5px calc(var(--d) * .2));
+  -webkit-mask-image: radial-gradient(circle closest-side, transparent 30%, #000 34%, rgba(0, 0, 0, .5) 60%, transparent 82%);
+  mask-image: radial-gradient(circle closest-side, transparent 30%, #000 34%, rgba(0, 0, 0, .5) 60%, transparent 82%); }
+.dawn__disc, .dawn__sky { will-change: transform; }

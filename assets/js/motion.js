@@ -448,9 +448,13 @@
         });
       });
 
-      /* Final CTA sun rises */
-      $$("[data-sunrise]", root).forEach(function (s) {
-        gsap.fromTo(s, { y: 120 }, { y: 0, ease: "none", scrollTrigger: { trigger: s.closest("section"), start: "top bottom", end: "bottom bottom", scrub: true } });
+      /* Closing sections: the half-sun rises as the panel scrolls in; the rays turn into place */
+      $$(".dawn", root).forEach(function (d) {
+        var tl = gsap.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: d.parentElement, start: "top bottom", end: "bottom bottom", scrub: 0.6 } });
+        tl.fromTo(d.querySelector(".dawn__disc"), { yPercent: 50 }, { yPercent: 0 }, 0)
+          .fromTo(d.querySelector(".dawn__sky"), { yPercent: 18, autoAlpha: .25 }, { yPercent: 0, autoAlpha: 1 }, 0)
+          .fromTo(d.querySelector(".dawn__rays"), { autoAlpha: 0 }, { autoAlpha: 1 }, 0)
+          .fromTo(d.querySelector(".dawn__rings"), { autoAlpha: 0 }, { autoAlpha: 1 }, 0.2);
       });
 
       /* About journey line */
@@ -509,7 +513,35 @@
 
   /* Footer wordmark (outside <main>, once) */
   var word = document.querySelector(".footer__word");
-  if (word) gsap.fromTo(word, { yPercent: 50, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, ease: "expo.out", duration: 1.6, scrollTrigger: { trigger: word, start: "top 98%", once: true } });
+  if (word && !word.dataset.split) {
+    word.dataset.split = "1";
+    var txt = word.textContent;
+    word.textContent = "";
+    txt.split("").forEach(function (ch) {
+      var s = document.createElement("span");
+      if (ch === " ") { s.className = "fw fw--sp"; }
+      else { s.className = "fw"; var i = document.createElement("i"); i.textContent = ch; s.appendChild(i); }
+      word.appendChild(s);
+    });
+    var letters = Array.prototype.slice.call(word.querySelectorAll(".fw i"));
+    /* rise in from the middle outwards */
+    gsap.fromTo(letters, { yPercent: 115 }, { yPercent: 0, duration: 1.5, ease: "expo.out", stagger: { each: 0.05, from: "center" },
+      scrollTrigger: { trigger: word, start: "top 96%", once: true } });
+    /* then a soft wave that follows the pointer: nearby letters lift and warm */
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      var raf = 0, px = null;
+      var paint = function () {
+        raf = 0;
+        letters.forEach(function (l) {
+          var g = 0;
+          if (px !== null) { var r = l.getBoundingClientRect(); g = Math.max(0, 1 - Math.abs(px - (r.left + r.width / 2)) / 220); }
+          l.style.setProperty("--g", g.toFixed(3));
+        });
+      };
+      word.addEventListener("pointermove", function (e) { px = e.clientX; if (!raf) raf = requestAnimationFrame(paint); });
+      word.addEventListener("pointerleave", function () { px = null; if (!raf) raf = requestAnimationFrame(paint); });
+    }
+  }
 
   window.CBMotion = { init: init, destroy: destroy, refresh: function () { ST.refresh(); } };
 
