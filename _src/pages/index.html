@@ -19,16 +19,15 @@
         </div>
 
         <div class="hero__visual" aria-hidden="false">
-          <div class="hero__sunwrap" data-hero-sun aria-hidden="true">
-            <svg class="rays" viewBox="0 0 200 200"><g>
-              <line x1="100" y1="0" x2="100" y2="200"/><line x1="0" y1="100" x2="200" y2="100"/>
-              <line x1="29" y1="29" x2="171" y2="171"/><line x1="171" y1="29" x2="29" y2="171"/>
-              <line x1="62" y1="8" x2="138" y2="192"/><line x1="138" y1="8" x2="62" y2="192"/>
-              <line x1="8" y1="62" x2="192" y2="138"/><line x1="8" y1="138" x2="192" y2="62"/>
-            </g></svg>
-            <svg class="rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="58" pathLength="1"/><circle cx="100" cy="100" r="72" pathLength="1"/><circle cx="100" cy="100" r="86" pathLength="1"/><circle cx="100" cy="100" r="99" pathLength="1"/></svg>
-            <div class="sun"></div>
-          </div>
+          <div class="hero__aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="hero__arch hero__arch--line" aria-hidden="true"></div>
+          <div class="hero__arch" aria-hidden="true"></div>
+          <div class="hero__orbit hero__orbit--a" aria-hidden="true"><div class="hero__spin"><i></i><i></i></div></div>
+          <div class="hero__orbit hero__orbit--b" aria-hidden="true"><div class="hero__spin"><i></i></div></div>
+          <span class="hero__spark hero__spark--1" aria-hidden="true">{{icon:spark}}</span>
+          <span class="hero__spark hero__spark--2" aria-hidden="true">{{icon:spark}}</span>
+          <span class="hero__spark hero__spark--3" aria-hidden="true">{{icon:spark}}</span>
+          <span class="hero__spark hero__spark--4" aria-hidden="true">{{icon:spark}}</span>
           <div class="hero__figure" data-hero-rise>
             <img src="assets/img/photos/hero-cutout.webp" alt="Carrie Bowman in a black blazer, looking straight at the camera" width="1010" height="1503" fetchpriority="high" decoding="async">
           </div>
@@ -40,6 +39,15 @@
             <span class="icon-badge">{{icon:brain}}</span>
             <span><b>MA, Clinical Psychology</b><span>Columbia University · PCC, ICF</span></span>
           </div>
+          <figure class="hero__float hero__float--quote float-quote" data-pop>
+            <span class="float-quote__mark">{{icon:quote}}</span>
+            <blockquote>Sessions with Carrie showed positive results almost immediately.</blockquote>
+            <figcaption><span class="faces">{{tface:jim-stippich}}</span><span><b>Jim Stippich</b>Client story</span></figcaption>
+          </figure>
+          <a class="hero__float hero__float--badge hero__badge" href="clarity-call.html" data-pop aria-label="Request a complimentary Clarity Call">
+            <svg class="hero__badge-text" viewBox="0 0 140 140" aria-hidden="true"><defs><path id="cb-hero-badge" d="M70 70m-55 0a55 55 0 1 1 110 0a55 55 0 1 1-110 0"/></defs><text><textPath href="#cb-hero-badge">Wake up · Feel alive · Book a Clarity Call ·</textPath></text></svg>
+            <span class="hero__badge-core">{{icon:arrow-ur}}</span>
+          </a>
         </div>
 
         <div class="hero__foot" data-hero-foot>
@@ -80,6 +88,7 @@
     <!-- ============ SOUND FAMILIAR + QUIET THE NOISE ============ -->
     <section class="sec" data-theme="paper">
       <div class="wrap">
+        <span class="deco" style="top:6%;right:4%;width:26px;height:26px" data-speed="2" aria-hidden="true">{{icon:spark}}</span><span class="deco deco--lilac" style="bottom:8%;left:2%;width:16px;height:16px" data-speed="-1.5" aria-hidden="true">{{icon:spark}}</span>
         <div class="intro">
           <div>
             <span class="label"><b>(01)</b><i></i>Sound familiar?</span>
@@ -152,6 +161,7 @@
           <h2 class="h2" data-split>None of this is magic. <em>It’s method.</em></h2>
           <p class="lead" data-reveal>There’s no surefire formula for success. But give a committed person three things and the result is reliable.</p>
         </div>
+        <span class="deco" style="top:8%;right:6%;width:30px;height:30px" data-speed="2" aria-hidden="true">{{icon:spark}}</span><span class="deco deco--lilac" style="bottom:14%;left:3%;width:18px;height:18px" data-speed="-1.5" aria-hidden="true">{{icon:spark}}</span>
         <div class="formula" data-stagger>
           <div class="formula__term"><small>Daily practice</small><b>Immersive design</b></div>
           <span class="formula__op" aria-hidden="true">+</span>
@@ -238,6 +248,7 @@
           <h2 class="h2" data-split>Three ways <em>in.</em></h2>
           <p class="lead" data-reveal>A structured program, a private partnership or a speaker for your people. Every path starts from the same belief: deep, lasting change can happen faster than you think.</p>
         </div>
+        <span class="deco" style="top:5%;right:3%;width:24px;height:24px" data-speed="2" aria-hidden="true">{{icon:spark}}</span><span class="deco deco--lilac" style="bottom:6%;left:2%;width:16px;height:16px" data-speed="-1.5" aria-hidden="true">{{icon:spark}}</span>
         <div class="paths">
           <a class="path path--feature" href="self-mastery.html" data-reveal data-cursor="Explore">
             <div class="path__media"><img src="assets/img/photos/mustard-gaze.webp" alt="Carrie Bowman in a mustard blouse, smiling" width="1145" height="1400" loading="lazy"><span class="pill">Signature program</span></div>
@@ -283,6 +294,7 @@
           <h2 class="h2" data-split>You need proof this <em>works.</em> Here it is.</h2>
           <p class="lead" data-reveal>Career changes, new businesses, calmer minds, sobriety and relationships that finally feel true. In their own words.</p>
         </div>
+        <span class="deco" style="top:4%;right:2%;width:22px;height:22px" data-speed="2" aria-hidden="true">{{icon:spark}}</span><span class="deco deco--lilac" style="bottom:10%;left:1.5%;width:18px;height:18px" data-speed="-1.5" aria-hidden="true">{{icon:spark}}</span>
         <div class="wall" data-wall>
           <div class="wall__col">{{tcard:rebecca-blaylock}}{{tcard:lance-scheele}}{{tcard:katherine-mason}}{{tcard:dave-krauss}}</div>
           <div class="wall__col">{{tcard:allison-mcafee}}{{tcard:kristin-leiber}}{{tcard:jennifer-minton}}{{tcard:jim-stippich}}</div>

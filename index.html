@@ -31,7 +31,7 @@
   <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/photos/hero-cutout.webp" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/main.css?v=4e867655">
+  <link rel="stylesheet" href="assets/css/main.css?v=1bcb7e25">
   <script>
     (function(d){d.classList.add('js');var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;function ink(){var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content','#0b1622')}try{var pt=sessionStorage.getItem('cb_pt');if(pt&&!rm){d.style.backgroundColor='#0b1622';d.classList.add('pt-enter','no-preloader');ink();sessionStorage.removeItem('cb_pt');setTimeout(function(){d.classList.remove('pt-enter')},3200)}else if(d.classList.contains('no-preloader')||sessionStorage.getItem('cb_seen')||rm){d.classList.add('no-preloader')}else{d.classList.add('is-loading');ink()}sessionStorage.setItem('cb_seen','1')}catch(e){d.classList.add('no-preloader')}})(document.documentElement);
   </script>
@@ -157,16 +157,15 @@
         </div>
 
         <div class="hero__visual" aria-hidden="false">
-          <div class="hero__sunwrap" data-hero-sun aria-hidden="true">
-            <svg class="rays" viewBox="0 0 200 200"><g>
-              <line x1="100" y1="0" x2="100" y2="200"/><line x1="0" y1="100" x2="200" y2="100"/>
-              <line x1="29" y1="29" x2="171" y2="171"/><line x1="171" y1="29" x2="29" y2="171"/>
-              <line x1="62" y1="8" x2="138" y2="192"/><line x1="138" y1="8" x2="62" y2="192"/>
-              <line x1="8" y1="62" x2="192" y2="138"/><line x1="8" y1="138" x2="192" y2="62"/>
-            </g></svg>
-            <svg class="rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="58" pathLength="1"/><circle cx="100" cy="100" r="72" pathLength="1"/><circle cx="100" cy="100" r="86" pathLength="1"/><circle cx="100" cy="100" r="99" pathLength="1"/></svg>
-            <div class="sun"></div>
-          </div>
+          <div class="hero__aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="hero__arch hero__arch--line" aria-hidden="true"></div>
+          <div class="hero__arch" aria-hidden="true"></div>
+          <div class="hero__orbit hero__orbit--a" aria-hidden="true"><div class="hero__spin"><i></i><i></i></div></div>
+          <div class="hero__orbit hero__orbit--b" aria-hidden="true"><div class="hero__spin"><i></i></div></div>
+          <span class="hero__spark hero__spark--1" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
+          <span class="hero__spark hero__spark--2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
+          <span class="hero__spark hero__spark--3" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
+          <span class="hero__spark hero__spark--4" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
           <div class="hero__figure" data-hero-rise>
             <img src="assets/img/photos/hero-cutout.webp" alt="Carrie Bowman in a black blazer, looking straight at the camera" width="1010" height="1503" fetchpriority="high" decoding="async">
           </div>
@@ -178,6 +177,15 @@
             <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3A3.5 3.5 0 0 0 6 6.5v.2A3.5 3.5 0 0 0 4 13a3.5 3.5 0 0 0 3 4.9V18a3 3 0 0 0 5 2.2V4.2A3.5 3.5 0 0 0 9.5 3zM14.5 3A3.5 3.5 0 0 1 18 6.5v.2a3.5 3.5 0 0 1 2 6.3 3.5 3.5 0 0 1-3 4.9V18a3 3 0 0 1-5 2.2"/></svg></span>
             <span><b>MA, Clinical Psychology</b><span>Columbia University · PCC, ICF</span></span>
           </div>
+          <figure class="hero__float hero__float--quote float-quote" data-pop>
+            <span class="float-quote__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span>
+            <blockquote>Sessions with Carrie showed positive results almost immediately.</blockquote>
+            <figcaption><span class="faces"><img class="face face--stack" src="assets/img/clients/jim-stippich.webp" alt="" width="140" height="140" loading="lazy" decoding="async"></span><span><b>Jim Stippich</b>Client story</span></figcaption>
+          </figure>
+          <a class="hero__float hero__float--badge hero__badge" href="clarity-call.html" data-pop aria-label="Request a complimentary Clarity Call">
+            <svg class="hero__badge-text" viewBox="0 0 140 140" aria-hidden="true"><defs><path id="cb-hero-badge" d="M70 70m-55 0a55 55 0 1 1 110 0a55 55 0 1 1-110 0"/></defs><text><textPath href="#cb-hero-badge">Wake up · Feel alive · Book a Clarity Call ·</textPath></text></svg>
+            <span class="hero__badge-core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </a>
         </div>
 
         <div class="hero__foot" data-hero-foot>
@@ -218,6 +226,7 @@
     <!-- ============ SOUND FAMILIAR + QUIET THE NOISE ============ -->
     <section class="sec" data-theme="paper">
       <div class="wrap">
+        <span class="deco" style="top:6%;right:4%;width:26px;height:26px" data-speed="2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span><span class="deco deco--lilac" style="bottom:8%;left:2%;width:16px;height:16px" data-speed="-1.5" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
         <div class="intro">
           <div>
             <span class="label"><b>(01)</b><i></i>Sound familiar?</span>
@@ -290,6 +299,7 @@
           <h2 class="h2" data-split>None of this is magic. <em>It’s method.</em></h2>
           <p class="lead" data-reveal>There’s no surefire formula for success. But give a committed person three things and the result is reliable.</p>
         </div>
+        <span class="deco" style="top:8%;right:6%;width:30px;height:30px" data-speed="2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span><span class="deco deco--lilac" style="bottom:14%;left:3%;width:18px;height:18px" data-speed="-1.5" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
         <div class="formula" data-stagger>
           <div class="formula__term"><small>Daily practice</small><b>Immersive design</b></div>
           <span class="formula__op" aria-hidden="true">+</span>
@@ -376,6 +386,7 @@
           <h2 class="h2" data-split>Three ways <em>in.</em></h2>
           <p class="lead" data-reveal>A structured program, a private partnership or a speaker for your people. Every path starts from the same belief: deep, lasting change can happen faster than you think.</p>
         </div>
+        <span class="deco" style="top:5%;right:3%;width:24px;height:24px" data-speed="2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span><span class="deco deco--lilac" style="bottom:6%;left:2%;width:16px;height:16px" data-speed="-1.5" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
         <div class="paths">
           <a class="path path--feature" href="self-mastery.html" data-reveal data-cursor="Explore">
             <div class="path__media"><img src="assets/img/photos/mustard-gaze.webp" alt="Carrie Bowman in a mustard blouse, smiling" width="1145" height="1400" loading="lazy"><span class="pill">Signature program</span></div>
@@ -500,6 +511,7 @@
           <h2 class="h2" data-split>You need proof this <em>works.</em> Here it is.</h2>
           <p class="lead" data-reveal>Career changes, new businesses, calmer minds, sobriety and relationships that finally feel true. In their own words.</p>
         </div>
+        <span class="deco" style="top:4%;right:2%;width:22px;height:22px" data-speed="2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span><span class="deco deco--lilac" style="bottom:10%;left:1.5%;width:18px;height:18px" data-speed="-1.5" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
         <div class="wall" data-wall>
           <div class="wall__col"><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">If you are looking for true, lasting change in your life, whether professional or personal, you have found your guide!</p><p>I had recently quit my last job, decided on a career change, and was completely unsure of where I was to go from there. I was living in a constant state of fear.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/rebecca-blaylock.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Rebecca Blaylock</b><span>Private coaching</span></div></div></figcaption></figure><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">For the first time in years, I feel I am exactly where I want to be.</p><p>I started working with Carrie due to some personal struggles in both my professional and personal life. At the time, I felt stuck, confused, and disconnected from myself and those around me.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/lance-scheele.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Lance Scheele</b><span>Private coaching</span></div></div></figcaption></figure><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">If you’re ready for a real shift in your life, the Self-Mastery™ Program is where to begin.</p><p>After struggling to overcome some unhelpful patterns, I was able to pinpoint why I was getting stuck and how I could take tangible action. Carrie is incredibly supportive, empathetic, and knowledgeable in the realm of inner work and what it takes to make lasting change.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/katherine-mason.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Katherine Mason</b><span>Self-Mastery™</span></div></div></figcaption></figure><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">Carrie is damn good at what she does.</p><p>When I knew I needed a “life coach,” it was in a moment of fog, frustration and vulnerability. I knew myself well enough to know that I wasn’t as incapable as I felt at that time. I simply had lost my connection to that capable side of myself.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/dave-krauss.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Dave Krauss</b><span>Private coaching</span></div></div></figcaption></figure></div>
           <div class="wall__col"><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">My experience with Carrie was profound!</p><p>My first session left me with a feeling of clarity, excitement for what could be possible, and inspiration to finally take action. Carrie is an exceptional listener and has an incredible ability to help her clients process their experience without being afraid or cautious.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/allison-mcafee.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Allison McAfee</b><span>Private coaching</span></div></div></figcaption></figure><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">Working with Carrie will be a life-changing experience.</p><p>I came to Carrie at one of the most difficult points of my life. In my mind, I was struggling with the direction of my career. In reality, I was juggling anxiety, restlessness, a new marriage, increasingly unfulfilling work, and dreams that seemed impossible.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/kristin-leiber.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Kristin Leiber</b><span>Private coaching</span></div></div></figcaption></figure><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">Truly, for the first time in my life, I came home to who I am as a human being.</p><p>Since working with Carrie, I’ve learned how to set boundaries and stick with them, I’ve learned that I am worthy of only engaging in things that give me joy, I’ve learned that I don’t have to people-please to earn respect from them, and so much more.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/jennifer-minton.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Jennifer Minton</b><span>Self-Mastery™</span></div></div></figcaption></figure><figure class="tcard"><span class="tcard__mark"><svg viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20.6C0 9.7 5.7 2.8 17.1 0l2.4 4.6C13.4 6.7 10.4 10.6 10.2 16H19v20zm28.6 0V20.6C28.6 9.7 34.3 2.8 45.6 0L48 4.6c-6.1 2.1-9.1 6-9.3 11.4h8.8v20z"/></svg></span><blockquote><p class="tcard__head">Carrie expertly guided me through an extremely low point in my life.</p><p>Together we identified what was causing my mind to “spin” rather than focus and created a clear path of how to move forward. Sessions with Carrie showed positive results almost immediately.</p></blockquote><figcaption><div class="person"><img class="face" src="assets/img/clients/jim-stippich.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><div><b>Jim Stippich</b><span>Private coaching</span></div></div></figcaption></figure></div>
@@ -575,6 +587,7 @@
 
         <section class="sec" id="guide" data-theme="sand">
       <div class="wrap">
+        <span class="deco" style="top:10%;right:4%;width:26px;height:26px" data-speed="2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span><span class="deco deco--lilac" style="bottom:10%;left:3%;width:18px;height:18px" data-speed="-1.5" aria-hidden="true"><svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2c1.2 11.6 6.4 16.8 18 18-11.6 1.2-16.8 6.4-18 18-1.2-11.6-6.4-16.8-18-18C13.6 18.8 18.8 13.6 20 2z"/></svg></span>
         <div class="guide">
           <div class="guide__art" data-reveal aria-hidden="true">
             <div class="sun"></div>
@@ -688,12 +701,17 @@
   <div class="dock" aria-hidden="true">
     <a class="btn btn--sun" href="clarity-call.html" data-book tabindex="-1"><span class="btn__label">Request a Clarity Call</span><span class="btn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   </div>
+  <a class="fab" href="clarity-call.html" aria-label="Request a complimentary Clarity Call" data-cursor="Book">
+    <svg class="fab__text" viewBox="0 0 140 140" aria-hidden="true"><defs><path id="cb-fab" d="M70 70m-54 0a54 54 0 1 1 108 0a54 54 0 1 1-108 0"/></defs><text><textPath href="#cb-fab">Book a Clarity Call · Complimentary ·</textPath></text></svg>
+    <span class="fab__core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+  </a>
+  <div class="scrollbar" aria-hidden="true"><i></i></div>
 
   <script src="assets/vendor/gsap.min.js?v=47da594c" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
   <script src="assets/vendor/lenis.min.js?v=79e3a064" defer></script>
   <script src="assets/js/config.js?v=2251cb11" defer></script>
-  <script src="assets/js/site.js?v=4afc961e" defer></script>
-  <script src="assets/js/motion.js?v=cd7b8531" defer></script>
+  <script src="assets/js/site.js?v=672b5956" defer></script>
+  <script src="assets/js/motion.js?v=e74e50fe" defer></script>
 </body>
 </html>

@@ -51,6 +51,8 @@
   /* ---------- Header ---------- */
   var header = $(".site-header");
   var dock = $(".dock");
+  var fab = $(".fab");
+  var progress = $(".scrollbar i");
   var lastY = window.scrollY;
   var ticking = false;
   function darkUnderHeader() {
@@ -59,7 +61,7 @@
     var els = document.elementsFromPoint(window.innerWidth / 2, header.offsetTop + header.offsetHeight / 2);
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
-      if (header.contains(el) || el.closest(".menu, .subnav, .dock, .cursor")) continue;
+      if (header.contains(el) || el.closest(".menu, .subnav, .dock, .fab, .scrollbar, .cursor")) continue;
       var sec = el.closest("[data-theme]");
       if (sec) return sec.getAttribute("data-theme") === "dark";
     }
@@ -73,7 +75,13 @@
       if (!body.classList.contains("menu-open")) header.classList.toggle("is-hidden", goingDown);
       header.classList.toggle("on-dark", darkUnderHeader());
     }
-    if (dock) dock.classList.toggle("is-on", y > window.innerHeight * 0.9 && !dockBlocked && body.getAttribute("data-page") !== "call");
+    var showCta = y > window.innerHeight * 0.9 && !dockBlocked && body.getAttribute("data-page") !== "call";
+    if (dock) dock.classList.toggle("is-on", showCta);
+    if (fab) fab.classList.toggle("is-on", showCta);
+    if (progress) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+    }
     lastY = y;
     ticking = false;
   }
@@ -455,6 +463,17 @@
       }, { threshold: 0.05 });
       blockers.forEach(function (b) { dio.observe(b); });
       onCleanup(function () { dio.disconnect(); dockBlocked = false; });
+    }
+
+    /* Pause decorative loops (drifting light, orbits, sparkles, spinning badges)
+       while their section is off-screen, so they cost nothing during scrolling */
+    if ("IntersectionObserver" in window) {
+      var ambient = $$(".hero, .hero-panel, .sm-feature, .cta-final, .kinetic, .wall", root);
+      var aio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { en.target.classList.toggle("is-offscreen", !en.isIntersecting); });
+      }, { rootMargin: "120px 0px" });
+      ambient.forEach(function (el) { aio.observe(el); });
+      onCleanup(function () { aio.disconnect(); });
     }
 
     /* Magnetic buttons */

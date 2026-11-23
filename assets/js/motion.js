@@ -157,7 +157,7 @@
     svg.setAttribute("viewBox", "0 0 300 24");
     svg.setAttribute("preserveAspectRatio", "none");
     svg.setAttribute("aria-hidden", "true");
-    svg.innerHTML = '<defs><linearGradient id="cb-swash-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ee6a2c"/><stop offset=".55" stop-color="#f5a524"/><stop offset="1" stop-color="#ffc34d"/></linearGradient></defs>' +
+    svg.innerHTML = '<defs><linearGradient id="cb-swash-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ff6a5a"/><stop offset=".5" stop-color="#ff9b73"/><stop offset="1" stop-color="#c3a6ff"/></linearGradient></defs>' +
       '<path d="M4 15 C 48 6, 104 4, 156 10 S 248 19, 296 8" stroke="url(#cb-swash-g)" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>';
     h1.appendChild(svg);
     var path = svg.querySelector("path");
@@ -230,9 +230,11 @@
       var hCount = heroEl ? heroEl.querySelector("[data-hero-count]") : null;
       var hProg = heroEl ? heroEl.querySelector(".hero__float--prog") : null;
       var hChip = heroEl ? heroEl.querySelector(".hero__float--cred") : null;
-      var hRingsSvg = sunwrap ? sunwrap.querySelector(".rings") : null;
-      var hRings = hRingsSvg ? $$("circle", hRingsSvg) : [];
-      var hRays = sunwrap ? sunwrap.querySelector(".rays") : null;
+      var hQuote = heroEl ? heroEl.querySelector(".hero__float--quote") : null;
+      var hBadge = heroEl ? heroEl.querySelector(".hero__float--badge") : null;
+      var hArches = heroEl ? $$(".hero__arch", heroEl) : [];
+      var hOrbits = heroEl ? $$(".hero__orbit", heroEl) : [];
+      var hAurora = heroEl ? heroEl.querySelector(".hero__aurora") : null;
       var hFigImg = rise ? rise.querySelector("img") : null;
       if (hLead) splitWords(hLead);
       var hSwash = heroEl ? buildSwash(heroEl) : null;
@@ -247,9 +249,13 @@
         if (hFoot) gsap.set(hFoot, { autoAlpha: 0, y: 18 });
         if (hFaces.length) gsap.set(hFaces, { autoAlpha: 0, scale: .4 });
         if (hProg) gsap.set(hProg, { autoAlpha: 0, x: 70, y: 24, rotate: 6 });
-        if (hChip) gsap.set(hChip, { autoAlpha: 0, x: -50, y: 10, rotate: -5 });
-        if (hRings.length) gsap.set(hRings, { strokeDasharray: 1, strokeDashoffset: 1 });
-        if (hRays) gsap.set(hRays, { autoAlpha: 0 });
+        if (hChip) gsap.set(hChip, { autoAlpha: 0, x: 50, y: 10, rotate: 5 });
+        if (hQuote) gsap.set(hQuote, { autoAlpha: 0, x: -60, y: 20, rotate: -6 });
+        if (hBadge) gsap.set(hBadge, { autoAlpha: 0, scale: .5, rotate: -50 });
+        if (hArches.length) gsap.set(hArches, { yPercent: 100 });
+        /* fade + drift only: scaling large rings forces a full redraw every frame */
+        if (hOrbits.length) gsap.set(hOrbits, { autoAlpha: 0, y: 40 });
+        if (hAurora) gsap.set(hAurora, { autoAlpha: 0 });
       } else if (pops.length) gsap.set(pops, { autoAlpha: 0, y: 36, scale: .92 });
       /* Carrie never fades (a see-through figure over the sun looks ghostly).
          On Home she rises up from below the frame; elsewhere she's revealed head-first. */
@@ -264,12 +270,16 @@
         if (refreshPending) { refreshPending = false; ST.refresh(); }
         if (!heroEl) return;
         ctx && ctx.add(function () {
-          /* gentle, endless float on the two cards (yPercent, so it never fights x/y) */
+          /* gentle, endless float on the cards (yPercent, so it never fights x/y) */
           if (hProg) gsap.to(hProg, { yPercent: -4, duration: 3.4, ease: "sine.inOut", yoyo: true, repeat: -1 });
           if (hChip) gsap.to(hChip, { yPercent: 14, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: .5 });
+          if (hQuote) gsap.to(hQuote, { yPercent: 5, duration: 3.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: .2 });
+          if (hBadge) gsap.to(hBadge, { yPercent: -8, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1, delay: .8 });
           /* depth on pointer move: each layer travels a different distance */
           if (finePtr && window.matchMedia("(min-width: 901px)").matches) {
-            var layers = [[hFigImg, 16], [hProg, 30], [hChip, 22], [hRingsSvg, 12]].filter(function (l) { return l[0]; });
+            var layers = [[hFigImg, 14], [hProg, 32], [hChip, 24], [hQuote, 28], [hBadge, 36], [hArches[1], 8], [hArches[0], 5]]
+              .concat(hOrbits.map(function (o, i) { return [o, 12 + i * 8]; }))
+              .filter(function (l) { return l[0]; });
             var qs = layers.map(function (l) {
               return [gsap.quickTo(l[0], "x", { duration: 1.3, ease: "power3.out" }), gsap.quickTo(l[0], "y", { duration: 1.3, ease: "power3.out" }), l[1]];
             });
@@ -295,14 +305,17 @@
         /* Home: a layered sequence, each element arriving on its own beat */
         if (hLabel) tl.to(hLabel, { autoAlpha: 1, y: 0, duration: 1 }, 0);
         if (hScramble) tl.call(function () { scramble(hScramble); }, null, 0.05);
-        if (hRings.length) tl.to(hRings, { strokeDashoffset: 0, duration: 2.4, ease: "power3.inOut", stagger: 0.14 }, 0.2);
-        if (hRays) tl.to(hRays, { autoAlpha: 1, duration: 2.2, ease: "power2.out" }, 0.6);
+        if (hAurora) tl.to(hAurora, { autoAlpha: 1, duration: 2, ease: "power2.out" }, 0);
+        if (hArches.length) tl.to(hArches, { yPercent: 0, duration: 1.7, stagger: 0.12 }, 0.05);
+        if (hOrbits.length) tl.to(hOrbits, { autoAlpha: 1, y: 0, duration: 1.8, stagger: 0.15 }, 0.55);
         if (hLead) tl.to(words(hLead), { yPercent: 0, duration: 1.1, stagger: 0.012, onComplete: function () { doneLines(hLead); } }, 0.62);
         if (hSwash) tl.to(hSwash, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, 0.95);
         if (hBtns.length) tl.to(hBtns, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.09 }, 0.92);
         if (hBtns[0]) tl.call(function () { hBtns[0].classList.add("is-shine"); }, null, 1.75);
         if (hProg) tl.to(hProg, { autoAlpha: 1, x: 0, y: 0, rotate: 0, duration: 1.5 }, 1.0);
         if (hChip) tl.to(hChip, { autoAlpha: 1, x: 0, y: 0, rotate: 0, duration: 1.4 }, 1.15);
+        if (hQuote) tl.to(hQuote, { autoAlpha: 1, x: 0, y: 0, rotate: 0, duration: 1.5 }, 0.9);
+        if (hBadge) tl.to(hBadge, { autoAlpha: 1, scale: 1, rotate: 0, duration: 1.3, ease: "back.out(1.7)" }, 1.25);
         if (hFoot) tl.to(hFoot, { autoAlpha: 1, y: 0, duration: 1.1 }, 1.1);
         if (hFaces.length) tl.to(hFaces, { autoAlpha: 1, scale: 1, duration: .8, ease: "back.out(2.2)", stagger: .07 }, 1.2);
         if (hCount) {
