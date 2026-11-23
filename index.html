@@ -28,7 +28,10 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/fraunces-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/main.css?v=e25f913a">
+  <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/img/photos/hero-cutout.webp" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/main.css?v=4e867655">
   <script>
     (function(d){d.classList.add('js');var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;function ink(){var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content','#0b1622')}try{var pt=sessionStorage.getItem('cb_pt');if(pt&&!rm){d.style.backgroundColor='#0b1622';d.classList.add('pt-enter','no-preloader');ink();sessionStorage.removeItem('cb_pt');setTimeout(function(){d.classList.remove('pt-enter')},3200)}else if(d.classList.contains('no-preloader')||sessionStorage.getItem('cb_seen')||rm){d.classList.add('no-preloader')}else{d.classList.add('is-loading');ink()}sessionStorage.setItem('cb_seen','1')}catch(e){d.classList.add('no-preloader')}})(document.documentElement);
   </script>
@@ -144,10 +147,10 @@
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__inner">
         <div class="hero__copy">
-          <span class="label" data-hero><span class="dot"></span>Master Life Coach &amp; Trained Therapist · Dallas &amp; online</span>
+          <span class="label" data-hero-label><span class="dot"></span><span data-scramble>Master Life Coach &amp; Trained Therapist · Dallas &amp; online</span></span>
           <h1 data-split><span class="row">You’re here.</span> <span class="row">But are you</span> <span class="row"><em class="glow">really</em> living?</span></h1>
-          <p class="lead" data-hero>Carrie Bowman helps high-achieving professionals find clarity and purpose through coaching that blends clinical psychology, neuroscience and real-world action. So you can start living a life that feels like <em>yours</em>.</p>
-          <div class="actions" data-hero>
+          <p class="lead" data-lead>Carrie Bowman helps high-achieving professionals find clarity and purpose through coaching that blends clinical psychology, neuroscience and real-world action. So you can start living a life that feels like <em>yours</em>.</p>
+          <div class="actions">
             <a class="btn btn--sun" href="clarity-call.html" data-magnetic><span class="btn__label">Request a Clarity Call</span><span class="btn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
             <a class="btn btn--ghost" href="self-mastery.html"><span class="btn__label">Explore Self-Mastery™</span><span class="btn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
           </div>
@@ -161,7 +164,7 @@
               <line x1="62" y1="8" x2="138" y2="192"/><line x1="138" y1="8" x2="62" y2="192"/>
               <line x1="8" y1="62" x2="192" y2="138"/><line x1="8" y1="138" x2="192" y2="62"/>
             </g></svg>
-            <svg class="rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="58"/><circle cx="100" cy="100" r="72"/><circle cx="100" cy="100" r="86"/><circle cx="100" cy="100" r="99"/></svg>
+            <svg class="rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="58" pathLength="1"/><circle cx="100" cy="100" r="72" pathLength="1"/><circle cx="100" cy="100" r="86" pathLength="1"/><circle cx="100" cy="100" r="99" pathLength="1"/></svg>
             <div class="sun"></div>
           </div>
           <div class="hero__figure" data-hero-rise>
@@ -177,9 +180,9 @@
           </div>
         </div>
 
-        <div class="hero__foot" data-hero>
+        <div class="hero__foot" data-hero-foot>
           <div class="faces"><img class="face face--stack" src="assets/img/clients/rebecca-blaylock.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><img class="face face--stack" src="assets/img/clients/ryan-lang.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><img class="face face--stack" src="assets/img/clients/kelly-vivian.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><img class="face face--stack" src="assets/img/clients/katherine-mason.webp" alt="" width="140" height="140" loading="lazy" decoding="async"><img class="face face--stack" src="assets/img/clients/leah-rambur.webp" alt="" width="140" height="140" loading="lazy" decoding="async"></div>
-          <p><b>34 client stories</b> of lives that finally<br>feel like their own.</p>
+          <p><b><span data-hero-count>34</span> client stories</b> of lives that finally<br>feel like their own.</p>
           <span class="hero__scroll"><i></i>Scroll to wake up</span>
         </div>
       </div>
@@ -690,7 +693,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
   <script src="assets/vendor/lenis.min.js?v=79e3a064" defer></script>
   <script src="assets/js/config.js?v=2251cb11" defer></script>
-  <script src="assets/js/site.js?v=5ddabe13" defer></script>
-  <script src="assets/js/motion.js?v=36328684" defer></script>
+  <script src="assets/js/site.js?v=4afc961e" defer></script>
+  <script src="assets/js/motion.js?v=cd7b8531" defer></script>
 </body>
 </html>

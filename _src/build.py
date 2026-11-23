@@ -175,6 +175,7 @@ def build():
         meta["canonical"] = SITE_URL + "/" + ("" if page.name == "index.html" else page.name)
         meta.setdefault("og_image", "assets/img/og-carrie-bowman.jpg")
         meta.setdefault("htmlclass", "" if page.name == "index.html" else "no-preloader")
+        meta.setdefault("head", "")   # extra <head> tags for one page, e.g. a hero image preload
         html_out = render(layout, meta).replace("{{BODY}}", render(body, meta))
         html_out = bust_cache(html_out)
         leftover = re.findall(r"\{\{[^}]*\}\}", html_out)

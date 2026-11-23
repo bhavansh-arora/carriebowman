@@ -1,17 +1,18 @@
 <!--meta {
   "title": "Carrie Bowman | Master Life Coach & Trained Therapist | Self-Mastery™",
   "description": "You’re here, but are you really living? Carrie Bowman, MA, PCC, helps high-achieving professionals find clarity and purpose through coaching that blends clinical psychology, neuroscience and real action.",
-  "nav": "home"
+  "nav": "home",
+  "head": "<link rel=\"preload\" as=\"image\" href=\"assets/img/photos/hero-cutout.webp\" fetchpriority=\"high\">"
 } -->
     <!-- ============ HERO ============ -->
     <section class="hero grain" data-theme="dark">
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__inner">
         <div class="hero__copy">
-          <span class="label" data-hero><span class="dot"></span>Master Life Coach &amp; Trained Therapist · Dallas &amp; online</span>
+          <span class="label" data-hero-label><span class="dot"></span><span data-scramble>Master Life Coach &amp; Trained Therapist · Dallas &amp; online</span></span>
           <h1 data-split><span class="row">You’re here.</span> <span class="row">But are you</span> <span class="row"><em class="glow">really</em> living?</span></h1>
-          <p class="lead" data-hero>Carrie Bowman helps high-achieving professionals find clarity and purpose through coaching that blends clinical psychology, neuroscience and real-world action. So you can start living a life that feels like <em>yours</em>.</p>
-          <div class="actions" data-hero>
+          <p class="lead" data-lead>Carrie Bowman helps high-achieving professionals find clarity and purpose through coaching that blends clinical psychology, neuroscience and real-world action. So you can start living a life that feels like <em>yours</em>.</p>
+          <div class="actions">
             <a class="btn btn--sun" href="clarity-call.html" data-magnetic><span class="btn__label">Request a Clarity Call</span><span class="btn__ic">{{icon:arrow}}</span></a>
             <a class="btn btn--ghost" href="self-mastery.html"><span class="btn__label">Explore Self-Mastery™</span><span class="btn__ic">{{icon:arrow}}</span></a>
           </div>
@@ -25,7 +26,7 @@
               <line x1="62" y1="8" x2="138" y2="192"/><line x1="138" y1="8" x2="62" y2="192"/>
               <line x1="8" y1="62" x2="192" y2="138"/><line x1="8" y1="138" x2="192" y2="62"/>
             </g></svg>
-            <svg class="rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="58"/><circle cx="100" cy="100" r="72"/><circle cx="100" cy="100" r="86"/><circle cx="100" cy="100" r="99"/></svg>
+            <svg class="rings" viewBox="0 0 200 200"><circle cx="100" cy="100" r="58" pathLength="1"/><circle cx="100" cy="100" r="72" pathLength="1"/><circle cx="100" cy="100" r="86" pathLength="1"/><circle cx="100" cy="100" r="99" pathLength="1"/></svg>
             <div class="sun"></div>
           </div>
           <div class="hero__figure" data-hero-rise>
@@ -41,9 +42,9 @@
           </div>
         </div>
 
-        <div class="hero__foot" data-hero>
+        <div class="hero__foot" data-hero-foot>
           <div class="faces">{{tface:rebecca-blaylock}}{{tface:ryan-lang}}{{tface:kelly-vivian}}{{tface:katherine-mason}}{{tface:leah-rambur}}</div>
-          <p><b>{{count:stories}} client stories</b> of lives that finally<br>feel like their own.</p>
+          <p><b><span data-hero-count>{{count:stories}}</span> client stories</b> of lives that finally<br>feel like their own.</p>
           <span class="hero__scroll"><i></i>Scroll to wake up</span>
         </div>
       </div>

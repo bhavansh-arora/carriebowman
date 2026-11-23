@@ -29,7 +29,8 @@
   /* ---------- Smooth scroll ---------- */
   var lenis = null;
   if (!reduced && window.Lenis) {
-    lenis = new window.Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    /* light, responsive smoothing (a long duration made scrolling feel heavy) */
+    lenis = new window.Lenis({ lerp: 0.12, smoothWheel: true, wheelMultiplier: 1 });
     window.lenis = lenis;
     if (!window.gsap) {
       var raf = function (time) { lenis.raf(time); requestAnimationFrame(raf); };
