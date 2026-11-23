@@ -419,7 +419,7 @@
       $$("[data-dial]", root).forEach(function (dial) {
         buildDial(dial);
         setDial(dial, 1);
-        ST.create({ trigger: dial, start: "top 75%", end: "bottom 35%", scrub: true,
+        ST.create({ trigger: dial, start: "top 80%", end: "center 55%", scrub: true,
           onUpdate: function (self) { setDial(dial, Math.max(1, Math.ceil(self.progress * 12))); } });
       });
 
