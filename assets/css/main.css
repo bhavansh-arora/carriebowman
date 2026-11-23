@@ -2044,3 +2044,56 @@ img[src*="/find-purpose."] { object-position: 55% 1%; }
 /* Button hover fill grows behind the label: the icon must not form its own layer,
    or its expanding circle is painted over the text */
 .btn__ic { z-index: auto; }
+
+/* ---------- 20. Filling the last gaps ---------- */
+/* Results: balanced columns + filler cards */
+.stories.is-masonry { columns: auto; display: flex; align-items: stretch; gap: clamp(14px, 1.6vw, 20px); }
+.stories__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+.stories.is-masonry .story { margin-bottom: 0; }
+.story-fill { display: none; }
+.story-fill.is-on { position: relative; display: flex; flex-direction: column; min-height: 200px; padding: clamp(24px, 2.2vw, 32px); border-radius: var(--radius); overflow: hidden; isolation: isolate; transition: transform .6s var(--ease); }
+.story-fill.is-on:hover { transform: translateY(-4px); }
+.story-fill__k { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.story-fill b { margin-top: auto; padding-top: 28px; font-size: clamp(24px, 2.1vw, 32px); font-weight: 740; letter-spacing: -.04em; line-height: 1.02; max-width: 12em; }
+.story-fill b em { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
+.story-fill__go { margin-top: 18px; display: inline-flex; align-items: center; gap: 10px; font-weight: 620; font-size: 15px; }
+.story-fill__go svg { width: 18px; height: 18px; transition: transform .5s var(--ease); }
+.story-fill:hover .story-fill__go svg { transform: rotate(45deg); }
+.story-fill--call { background: var(--dawn); color: var(--ink); }
+.story-fill--call::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 100% 100%, rgba(11, 22, 34, .09) 0deg 1deg, transparent 1deg 8deg);
+  -webkit-mask-image: radial-gradient(120% 110% at 100% 100%, #000 10%, transparent 72%); mask-image: radial-gradient(120% 110% at 100% 100%, #000 10%, transparent 72%); }
+.story-fill--call .story-fill__k { color: rgba(11, 22, 34, .66); }
+.story-fill--quiz { background: var(--ink); color: var(--cream); }
+.story-fill--quiz::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-radial-gradient(circle at 100% 0%, transparent 0 21px, rgba(255, 179, 138, .16) 21px 22px), radial-gradient(60% 50% at 100% 0%, rgba(255, 126, 95, .2), transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 70%); mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 70%); }
+.story-fill--quiz .story-fill__k { color: var(--sun); }
+.story-fill--quiz b em { color: var(--sun); }
+@media (hover: none) { .story-fill.is-on:hover { transform: none; } }
+
+/* Stickers spread across the whole column in a loose 2 x 2 */
+@media (min-width: 1025px) {
+  .split--top:has(.split-media) .stickers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 18px; align-items: center; }
+  .split--top:has(.split-media) .sticker { font-size: clamp(18px, 1.55vw, 23px); padding: 16px 26px; justify-self: start; }
+  .split--top:has(.split-media) .sticker:nth-child(2) { justify-self: end; margin-right: 4%; }
+  .split--top:has(.split-media) .sticker:nth-child(3) { margin-left: 10%; }
+  .split--top:has(.split-media) .sticker:nth-child(4) { justify-self: end; }
+}
+
+/* Speaking, Book Carrie: what happens next + photo, so the column runs alongside the form */
+.next-steps { margin-top: 36px; display: grid; gap: 10px; }
+.next-steps li { display: flex; align-items: center; gap: 16px; padding: 14px 18px 14px 14px; border-radius: 18px; background: var(--cream); box-shadow: inset 0 0 0 1px var(--line); }
+.next-steps li > span { width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center; font-family: var(--f-mono); font-size: 12px; background: var(--dawn); color: var(--ink); }
+.next-steps b { display: block; font-weight: 650; font-size: 16px; line-height: 1.25; }
+.next-steps small { display: block; margin-top: 2px; font-size: 13.5px; color: var(--text-2); }
+.book-media { position: relative; margin-top: 28px; border-radius: var(--radius-xl); overflow: hidden; aspect-ratio: 16 / 11; background: var(--sand); }
+.book-media img { width: 100%; height: 100%; object-fit: cover; }
+img[src*="/blazer-cross."] { object-position: 32% 4%; }
+@media (max-width: 1024px) { .book-media { display: none; } }
+/* Book Carrie: steps and a portrait side by side, so the column matches the form's height */
+.book-row { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 12px; margin-top: 32px; align-items: stretch; }
+.book-row .next-steps { margin-top: 0; }
+.book-row .book-media { margin-top: 0; aspect-ratio: auto; min-height: 220px; border-radius: var(--radius); }
+.book-row .book-media img { position: absolute; inset: 0; }
+@media (max-width: 1024px) { .book-row { grid-template-columns: 1fr; } }

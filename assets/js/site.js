@@ -599,13 +599,66 @@
         });
       });
     }
+    /* Results: balanced columns. Each story goes into the shortest column (reading order kept
+       as far as possible), then filler cards take up whatever space is left, so the columns
+       end level. Re-runs on filter, resize and when a story opens. */
+    var grid = $(".stories", root);
+    var relayout = function () {};
+    if (grid) {
+      var cards = $$(".story", grid), fills = $$("[data-fill]", grid), cols = [], ncols = 0;
+      var colCount = function () { return window.matchMedia("(max-width: 760px)").matches ? 1 : window.matchMedia("(max-width: 1024px)").matches ? 2 : 3; };
+      var build = function () {
+        ncols = colCount();
+        cols.forEach(function (c) { if (c.parentNode) c.parentNode.removeChild(c); });
+        cols = [];
+        for (var c = 0; c < ncols; c++) { var col = document.createElement("div"); col.className = "stories__col"; grid.appendChild(col); cols.push(col); }
+        grid.classList.add("is-masonry");
+        var used = cols.map(function () { return 0; });   /* content height so far (columns stretch, so measure content) */
+        cards.forEach(function (card) {
+          if (card.classList.contains("is-hidden")) { cols[0].appendChild(card); return; }
+          var best = 0;
+          used.forEach(function (u, i) { if (u < used[best] - 1) best = i; });
+          cols[best].appendChild(card);
+          used[best] += card.offsetHeight + 18;
+        });
+        placeFills();
+      };
+      var placeFills = function () {
+        fills.forEach(function (f) { f.style.flexGrow = ""; f.classList.remove("is-on"); grid.appendChild(f); });
+        var h = function (col) { var t = 0; Array.prototype.forEach.call(col.children, function (k) { if (k.offsetParent) t += k.offsetHeight + 18; }); return t; };
+        var heights = cols.map(h), tallest = Math.max.apply(null, heights);
+        var order = cols.map(function (c, i) { return i; }).sort(function (a, b) { return heights[a] - heights[b]; });
+        var fi = 0;
+        order.forEach(function (i) {
+          if (fi >= fills.length) return;
+          if (ncols === 1 ? fi > 0 : tallest - heights[i] < 170) return;
+          var f = fills[fi++];
+          f.classList.add("is-on");
+          f.style.flexGrow = ncols === 1 ? "" : "1";
+          cols[i].appendChild(f);
+        });
+        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      };
+      relayout = build;
+      build();
+      var lastCols = ncols;
+      var onResize = function () { if (colCount() !== lastCols) { lastCols = colCount(); build(); } };
+      window.addEventListener("resize", onResize);
+      onCleanup(function () { window.removeEventListener("resize", onResize); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (grid.isConnected) build(); });
+      grid.__placeFills = placeFills;
+    }
+    if (filterBar) $$(".chip", filterBar).forEach(function (chip) { chip.addEventListener("click", function () { relayout(); }); });
+
     $$(".story__more", root).forEach(function (btn) {
       btn.addEventListener("click", function () {
         var s = btn.closest(".story");
         var open = s.classList.toggle("is-open");
         btn.setAttribute("aria-expanded", open ? "true" : "false");
         $("span", btn).textContent = open ? "Show less" : "Read the full story";
-        if (window.ScrollTrigger) setTimeout(function () { window.ScrollTrigger.refresh(); }, 50);
+        var g = s.closest(".stories");
+        if (g && g.__placeFills) setTimeout(g.__placeFills, 60);
+        else if (window.ScrollTrigger) setTimeout(function () { window.ScrollTrigger.refresh(); }, 50);
       });
     });
 
