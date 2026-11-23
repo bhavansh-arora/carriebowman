@@ -468,7 +468,7 @@
     /* Pause decorative loops (drifting light, orbits, sparkles, spinning badges)
        while their section is off-screen, so they cost nothing during scrolling */
     if ("IntersectionObserver" in window) {
-      var ambient = $$(".hero, .hero-panel, .sm-feature, .cta-final, .kinetic, .wall", root);
+      var ambient = $$(".hero, .hero-panel, .sm-feature, .cta-final, .kinetic, .wall, .has-art", root);
       var aio = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) { en.target.classList.toggle("is-offscreen", !en.isIntersecting); });
       }, { rootMargin: "120px 0px" });

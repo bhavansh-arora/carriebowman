@@ -1871,3 +1871,70 @@ body[data-page="call"] .fab { display: none; }
   -webkit-mask-image: radial-gradient(circle closest-side, transparent 30%, #000 34%, rgba(0, 0, 0, .5) 60%, transparent 82%);
   mask-image: radial-gradient(circle closest-side, transparent 30%, #000 34%, rgba(0, 0, 0, .5) 60%, transparent 82%); }
 .dawn__disc, .dawn__sky { will-change: transform; }
+
+/* ---------- 16. Section graphics ----------
+   Quiet graphics in plain sections, about two-thirds on screen at an edge and behind
+   the content: the rising-sun mark, contour rings with orbiting dots, a dot field, or a
+   sunburst, each on a soft peach/lilac wash. Added by the build (see add_section_art). */
+section.has-art { position: relative; isolation: isolate; overflow: clip; }
+.sec-art { position: absolute; inset: 0; z-index: -1; pointer-events: none; --s: clamp(320px, 38vw, 600px); --ink-l: rgba(11, 22, 34, .11); }
+.sec-art::before { content: ""; position: absolute; width: calc(var(--s) * 1.5); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle closest-side, rgba(255, 166, 130, .26), rgba(200, 176, 255, .14) 55%, rgba(200, 176, 255, 0) 100%); }
+.sec-art i { position: absolute; display: block; width: var(--s); aspect-ratio: 1; }
+.sec-art--r i { right: calc(var(--s) * -.3); }
+.sec-art--l i { left: calc(var(--s) * -.3); }
+.sec-art--r::before { right: calc(var(--s) * -.75); }
+.sec-art--l::before { left: calc(var(--s) * -.75); }
+.sec-art--top i { top: 3%; }
+.sec-art--mid i { top: calc(50% - var(--s) / 2); }
+.sec-art--bot i { bottom: 3%; }
+.sec-art--top::before { top: calc(var(--s) * -.45); }
+.sec-art--mid::before { top: calc(50% - var(--s) * .75); }
+.sec-art--bot::before { bottom: calc(var(--s) * -.45); }
+
+/* the rising-sun mark */
+.sec-art--sun i { aspect-ratio: 200 / 132; background: var(--art-mark-ink) center / contain no-repeat; }
+/* contour rings with two orbiting dots (on inner rings, so they never touch the edge) */
+.sec-art--rings i { border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 calc(var(--s) * .06 - 1.3px), var(--ink-l) calc(var(--s) * .06 - 1.3px) calc(var(--s) * .06));
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 50%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 50%, transparent 100%);
+  animation: orbit 80s linear infinite; }
+.sec-art--rings i::before, .sec-art--rings i::after { content: ""; position: absolute; border-radius: 50%; }
+.sec-art--rings i::before { width: 16px; height: 16px; left: calc(50% - var(--s) * .085 - 8px); top: calc(50% - var(--s) * .085 - 8px); background: var(--dawn); box-shadow: 0 0 0 7px rgba(255, 138, 104, .15); }
+.sec-art--rings i::after { width: 10px; height: 10px; left: calc(50% + var(--s) * .17 - 5px); top: calc(50% + var(--s) * .06 - 5px); background: var(--lilac); box-shadow: 0 0 0 5px rgba(182, 164, 255, .18); }
+@keyframes orbit { to { rotate: 360deg; } }
+/* a dot field */
+.sec-art--dots i { border-radius: 50%;
+  background: radial-gradient(rgba(11, 22, 34, .24) 1.4px, transparent 2px) 0 0 / 18px 18px;
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 30%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 30%, transparent 100%); }
+/* a sunburst */
+.sec-art--rays i { border-radius: 50%;
+  background: radial-gradient(circle closest-side, rgba(255, 150, 112, .55) 0 11%, rgba(255, 150, 112, 0) 11.5%),
+    repeating-conic-gradient(from 0deg, rgba(210, 69, 63, .17) 0deg .5deg, transparent .5deg 7.5deg);
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 0, #000 20%, rgba(0, 0, 0, .55) 55%, transparent 100%);
+  mask-image: radial-gradient(circle closest-side, #000 0, #000 20%, rgba(0, 0, 0, .55) 55%, transparent 100%); }
+
+/* dark panels: the same shapes in light ink */
+[data-theme="dark"] .sec-art { --ink-l: rgba(246, 240, 230, .085); }
+[data-theme="dark"] .sec-art::before { background: radial-gradient(circle closest-side, rgba(255, 126, 95, .16), rgba(120, 100, 235, .12) 55%, rgba(120, 100, 235, 0) 100%); }
+[data-theme="dark"] .sec-art--sun i { background-image: var(--art-mark-cream); }
+[data-theme="dark"] .sec-art--dots i { background-image: radial-gradient(rgba(246, 240, 230, .2) 1.4px, transparent 2px); }
+[data-theme="dark"] .sec-art--rays i { background: radial-gradient(circle closest-side, rgba(255, 150, 112, .4) 0 11%, rgba(255, 150, 112, 0) 11.5%), repeating-conic-gradient(from 0deg, rgba(255, 190, 154, .14) 0deg .5deg, transparent .5deg 7.5deg); }
+
+@media (max-width: 760px) {
+  .sec-art { --s: 300px; }
+  .sec-art i { opacity: .75; }
+  .sec-art--r i { right: calc(var(--s) * -.5); }
+  .sec-art--l i { left: calc(var(--s) * -.5); }
+}
+@media (prefers-reduced-motion: reduce) { .sec-art--rings i { animation: none; } }
+/* Sunburst centre: a thin ring, not a solid ball; dot fields a touch lighter behind text */
+.sec-art--rays i { background:
+    radial-gradient(circle closest-side, transparent 0 10%, rgba(255, 138, 104, .55) 10.3% 10.9%, transparent 11.2%),
+    radial-gradient(circle closest-side, rgba(255, 138, 104, .5) 0 2.2%, transparent 2.6%),
+    repeating-conic-gradient(from 0deg, rgba(210, 69, 63, .17) 0deg .5deg, transparent .5deg 7.5deg); }
+[data-theme="dark"] .sec-art--rays i { background:
+    radial-gradient(circle closest-side, transparent 0 10%, rgba(255, 170, 135, .45) 10.3% 10.9%, transparent 11.2%),
+    radial-gradient(circle closest-side, rgba(255, 170, 135, .45) 0 2.2%, transparent 2.6%),
+    repeating-conic-gradient(from 0deg, rgba(255, 190, 154, .14) 0deg .5deg, transparent .5deg 7.5deg); }
+.sec-art--dots i { background-image: radial-gradient(rgba(11, 22, 34, .17) 1.4px, transparent 2px); }

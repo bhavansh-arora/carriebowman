@@ -164,6 +164,54 @@ def bust_cache(page_html):
     return re.sub(r'((?:href|src)=")(assets/(?:css|js|vendor)/[\w.-]+\.(?:css|js))"', ver, page_html)
 
 
+
+# Plain light (and a few dark) sections get a quiet background graphic at an edge.
+# The four styles take turns down the page and alternate sides. A section can choose
+# its own with data-art="rings-l" or several with data-art="rings-l-top+dots-r-bot"
+# (style-side[-y], y = top|mid|bot), or opt out with data-art="none".
+ART_STYLES = ["sun", "rings", "dots", "rays"]
+ART_Y = {"sun": "top", "rings": "mid", "dots": "bot", "rays": "top"}
+ART_SKIP = {"hero", "hero-panel", "hscroll", "ready", "cta-final"}
+
+
+def add_section_art(page_html):
+    count = {"n": 0}
+
+    def layer(item):
+        parts = item.split("-")
+        style, side = parts[0], parts[1]
+        y = parts[2] if len(parts) > 2 else ART_Y[style]
+        speed = "1.4" if side == "r" else "-1.2"
+        return (f'<div class="sec-art sec-art--{style} sec-art--{side} sec-art--{y}" aria-hidden="true">'
+                f'<i data-speed="{speed}"></i></div>')
+
+    def inject(m):
+        attrs = m.group(1)
+        cls = re.search(r'class="([^"]*)"', attrs)
+        classes = set(cls.group(1).split()) if cls else set()
+        theme = re.search(r'data-theme="([^"]*)"', attrs)
+        theme = theme.group(1) if theme else ""
+        pick = re.search(r'data-art="([^"]*)"', attrs)
+        if pick and pick.group(1) == "none":
+            return m.group(0)
+        if not (classes & {"sec", "page-hero"}) or classes & ART_SKIP:
+            return m.group(0)
+        if theme not in ("paper", "cream", "sand", "dark"):
+            return m.group(0)
+        if theme == "dark" and "sm-feature" not in classes:
+            return m.group(0)
+        if pick:
+            items = pick.group(1).split("+")
+        else:
+            i = count["n"]
+            count["n"] += 1
+            items = [ART_STYLES[i % len(ART_STYLES)] + "-" + ("r" if i % 2 == 0 else "l")]
+        new_attrs = re.sub(r'class="([^"]*)"', lambda c: f'class="{c.group(1)} has-art"', attrs, count=1)
+        return f"<section{new_attrs}>\n      " + "".join(layer(it) for it in items)
+
+    return re.sub(r"<section(\s[^>]*)>", inject, page_html)
+
+
 def build():
     layout = (SRC / "partials" / "layout.html").read_text(encoding="utf-8")
     for page in sorted((SRC / "pages").glob("*.html")):
@@ -177,6 +225,7 @@ def build():
         meta.setdefault("htmlclass", "" if page.name == "index.html" else "no-preloader")
         meta.setdefault("head", "")   # extra <head> tags for one page, e.g. a hero image preload
         html_out = render(layout, meta).replace("{{BODY}}", render(body, meta))
+        html_out = add_section_art(html_out)
         html_out = bust_cache(html_out)
         leftover = re.findall(r"\{\{[^}]*\}\}", html_out)
         if leftover:

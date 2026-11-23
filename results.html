@@ -31,7 +31,7 @@
   <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
   
-  <link rel="stylesheet" href="assets/css/main.css?v=6e88465b">
+  <link rel="stylesheet" href="assets/css/main.css?v=442ab43f">
   <script>
     (function(d){d.classList.add('js');var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;function ink(){var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content','#0b1622')}try{var pt=sessionStorage.getItem('cb_pt');if(pt&&!rm){d.style.backgroundColor='#0b1622';d.classList.add('pt-enter','no-preloader');ink();sessionStorage.removeItem('cb_pt');setTimeout(function(){d.classList.remove('pt-enter')},3200)}else if(d.classList.contains('no-preloader')||sessionStorage.getItem('cb_seen')||rm){d.classList.add('no-preloader')}else{d.classList.add('is-loading');ink()}sessionStorage.setItem('cb_seen','1')}catch(e){d.classList.add('no-preloader')}})(document.documentElement);
   </script>
@@ -142,7 +142,8 @@
 
   <main id="main">
 
-    <section class="page-hero" data-theme="paper">
+    <section class="page-hero has-art" data-theme="paper" data-art="rings-l-mid+rays-r-mid">
+      <div class="sec-art sec-art--rings sec-art--l sec-art--mid" aria-hidden="true"><i data-speed="-1.2"></i></div><div class="sec-art sec-art--rays sec-art--r sec-art--mid" aria-hidden="true"><i data-speed="1.4"></i></div>
       <div class="wrap">
         <div class="sec-head sec-head--center" style="margin-bottom:0">
           <span class="label" data-hero><b>(R)</b><i></i>Client results</span>
@@ -155,7 +156,8 @@
       </div>
     </section>
 
-    <section class="sm-feature sec sec--tight grain" data-theme="dark">
+    <section class="sm-feature sec sec--tight grain has-art" data-theme="dark">
+      <div class="sec-art sec-art--sun sec-art--r sec-art--top" aria-hidden="true"><i data-speed="1.4"></i></div>
       <div class="sm-feature__glow" aria-hidden="true"></div>
       <div class="wrap">
         <div class="pulls" data-stagger>
@@ -169,7 +171,8 @@
       </div>
     </section>
 
-    <section class="sec" data-theme="cream">
+    <section class="sec has-art" data-theme="cream">
+      <div class="sec-art sec-art--rings sec-art--l sec-art--mid" aria-hidden="true"><i data-speed="-1.2"></i></div>
       <div class="wrap">
         <div class="filters" data-filters role="group" aria-label="Filter stories">
           <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All stories</button>
@@ -305,7 +308,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
   <script src="assets/vendor/lenis.min.js?v=79e3a064" defer></script>
   <script src="assets/js/config.js?v=2251cb11" defer></script>
-  <script src="assets/js/site.js?v=672b5956" defer></script>
+  <script src="assets/js/site.js?v=09668535" defer></script>
   <script src="assets/js/motion.js?v=4e4da3ec" defer></script>
 </body>
 </html>
