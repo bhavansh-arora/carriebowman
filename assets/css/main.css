@@ -261,9 +261,9 @@ figure, blockquote { margin: 0; }
 .loader { position: fixed; inset: 0; z-index: 200; background: var(--ink); color: var(--cream); display: grid; place-items: center; overflow: hidden; }
 html:not(.is-loading) .loader { display: none; }
 .loader__stage { position: relative; width: min(560px, 86vw); aspect-ratio: 2 / 1; }
-.loader__sun { position: absolute; left: 50%; bottom: 0; width: 46%; aspect-ratio: 1; margin-left: -23%; border-radius: 50%; background: var(--sun-disc); transform: translateY(102%); box-shadow: 0 0 120px 30px rgba(245, 165, 36, .3); }
-.loader__clip { position: absolute; inset: 0 0 0 0; overflow: hidden; }
-.loader__line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line-d2); transform: scaleX(0); transform-origin: left; }
+.loader__sun { position: absolute; left: 50%; bottom: 0; width: 42%; aspect-ratio: 1; margin-left: -21%; border-radius: 50%; background: var(--sun-disc); transform: translateY(104%); box-shadow: 0 0 120px 20px rgba(245, 165, 36, .35), 0 0 260px 60px rgba(238, 106, 44, .18); will-change: transform; }
+/* Clips only below the horizon line, so the sun's glow isn't boxed in */
+.loader__clip { position: absolute; inset: 0; clip-path: inset(-400% -400% 0 -400%); }.loader__line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line-d2); transform: scaleX(0); transform-origin: left; }
 .loader__word { position: absolute; left: 0; right: 0; top: calc(100% + 34px); text-align: center; font-size: clamp(28px, 4vw, 46px); font-weight: 720; letter-spacing: -.035em; line-height: 1; overflow: hidden; padding-bottom: .1em; }
 .loader__word span { display: inline-block; transform: translateY(110%); }
 .loader__word em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--sun); }
@@ -283,11 +283,11 @@ html:not(.is-loading) .loader { display: none; }
 .curtain.is-leaving .curtain__sun { transform: translateY(-102%); transition: transform 1s var(--ease-io) .1s; }
 .curtain.no-anim .curtain__sun, .curtain.no-anim .curtain__ink, .curtain.no-anim * { transition: none !important; }
 .curtain__inner { text-align: center; color: var(--cream); position: relative; }
-.curtain__orb { width: 84px; height: 84px; margin: 0 auto 26px; border-radius: 50%; background: var(--sun-disc); box-shadow: 0 0 80px 10px rgba(245, 165, 36, .35); transform: translateY(30px) scale(.6); opacity: 0; transition: transform .9s var(--ease) .25s, opacity .6s .25s; }
+.curtain__orb { width: 84px; height: 84px; margin: 0 auto 26px; border-radius: 50%; background: var(--sun-disc); box-shadow: 0 0 80px 10px rgba(245, 165, 36, .35); transform: translateY(46px); transition: transform 1.1s var(--ease) .2s; }
 .curtain__title { font-size: clamp(38px, 6vw, 84px); font-weight: 740; letter-spacing: -.045em; line-height: .95; opacity: 0; transform: translateY(24px); transition: transform .9s var(--ease) .32s, opacity .6s .32s; display: block; }
 .curtain__title em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--sun); }
 .curtain__kick { display: block; margin-top: 22px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(246, 240, 230, .5); opacity: 0; transition: opacity .6s .45s; }
-.curtain.is-covering .curtain__orb, .curtain.is-covered .curtain__orb, html.pt-enter .curtain__orb { transform: none; opacity: 1; }
+.curtain.is-covering .curtain__orb, .curtain.is-covered .curtain__orb, html.pt-enter .curtain__orb { transform: none; }
 .curtain.is-covering .curtain__title, .curtain.is-covered .curtain__title, html.pt-enter .curtain__title { transform: none; opacity: 1; }
 .curtain.is-covering .curtain__kick, .curtain.is-covered .curtain__kick, html.pt-enter .curtain__kick { opacity: 1; }
 .curtain.is-leaving .curtain__inner { transform: translateY(-60px); opacity: 0; transition: transform .9s var(--ease-io), opacity .5s; }

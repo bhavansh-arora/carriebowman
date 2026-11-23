@@ -124,14 +124,14 @@
     requestAnimationFrame(function () { requestAnimationFrame(function () {
       lLine.style.transition = "transform 1.1s cubic-bezier(.65,0,.35,1)";
       lLine.style.transform = "scaleX(1)";
-      lSun.style.transition = "transform 1.7s cubic-bezier(.22,1,.36,1) .35s";
-      lSun.style.transform = "translateY(38%)";
+      lSun.style.transition = "transform 1.6s cubic-bezier(.22,1,.36,1) .3s";
+      lSun.style.transform = "translateY(0)";
       lWords.forEach(function (w, i) {
         w.style.transition = "transform 1.1s cubic-bezier(.22,1,.36,1) " + (0.55 + i * 0.07) + "s";
         w.style.transform = "translateY(0)";
       });
     }); });
-    var t0 = performance.now(), DUR = 1900;
+    var t0 = performance.now(), DUR = 1750;
     (function tick(now) {
       var p = Math.min(1, (now - t0) / DUR);
       var e = 1 - Math.pow(1 - p, 3);
@@ -145,12 +145,20 @@
     if (!doc.classList.contains("pt-enter")) uiPaper();
     loaded();
   }
+  /* Once the sun has risen, the loader lifts away like the page-change curtain,
+     taking its sun with it. No sun on the site ever fades or scales: a translucent
+     disc over navy turns muddy, and a swelling one looks cheap. */
   function finishLoader() {
-    loader.style.transition = "clip-path 1.1s cubic-bezier(.65,0,.35,1)";
-    loader.style.clipPath = "inset(0 0 100% 0)";
-    setTimeout(function () { doc.classList.remove("is-loading"); uiPaper(); }, 650);
-    loaded();
-    setTimeout(function () { loader.remove(); }, 1200);
+    loader.style.transition = "transform 1.1s cubic-bezier(.76,0,.24,1), border-radius 1.1s cubic-bezier(.76,0,.24,1)";
+    loader.style.borderRadius = "0 0 48px 48px";
+    loader.style.transform = "translateY(-100%)";
+    loader.style.pointerEvents = "none";
+    setTimeout(loaded, 250);      /* the hero starts rising as the screen lifts */
+    setTimeout(uiPaper, 500);
+    setTimeout(function () {
+      doc.classList.remove("is-loading");
+      if (loader.parentNode) loader.parentNode.removeChild(loader);
+    }, 1200);
   }
 
   /* ---------- Cursor ---------- */

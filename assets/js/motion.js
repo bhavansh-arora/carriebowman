@@ -146,14 +146,22 @@
       heroSplits.forEach(function (el) { gsap.set(words(el), { yPercent: 120 }); });
       if (heroBits.length) gsap.set(heroBits, { autoAlpha: 0, y: 30 });
       if (pops.length) gsap.set(pops, { autoAlpha: 0, y: 36, scale: .92 });
-      if (sunwrap) gsap.set(sunwrap, { yPercent: 24, scale: .55, autoAlpha: 0 });
-      if (rise) gsap.set(rise, { yPercent: 22, autoAlpha: 0 });
+      /* Sun discs never fade or scale (a translucent sun over navy looks muddy,
+         a swelling one looks cheap). The full-size hero sun just rises gently into place. */
+      var sunLines = sunwrap ? $$(".rings, .rays", sunwrap) : [];
+      if (sunLines.length) gsap.set(sunLines, { autoAlpha: 0 });
+      if (sunwrap) gsap.set(sunwrap, { y: 90 });
+      /* Carrie never fades either (a see-through figure over the sun looks ghostly).
+         On Home she rises up from below the frame; elsewhere she's revealed head-first. */
+      var riseFromEdge = !!(rise && rise.closest(".hero"));
+      if (rise) gsap.set(rise, riseFromEdge ? { yPercent: 100 } : { yPercent: 12, clipPath: "inset(0% 0% 100% 0%)" });
       if (heroMedia.length) gsap.set(heroMedia, { clipPath: "inset(100% 0% 0% 0% round 28px)" });
 
       function playHero() {
         var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-        if (sunwrap) tl.to(sunwrap, { yPercent: 0, scale: 1, autoAlpha: 1, duration: 2.2 }, 0);
-        if (rise) tl.to(rise, { yPercent: 0, autoAlpha: 1, duration: 1.9 }, 0.25);
+        if (sunwrap) tl.to(sunwrap, { y: 0, duration: 2.4 }, 0);
+        if (sunLines.length) tl.to(sunLines, { autoAlpha: 1, duration: 2, ease: "power2.out" }, 0.3);
+        if (rise) tl.to(rise, riseFromEdge ? { yPercent: 0, duration: 2 } : { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut" }, 0.2);
         heroSplits.forEach(function (el, i) {
           tl.to(words(el), { yPercent: 0, duration: 1.5, stagger: 0.06, onComplete: function () { doneLines(el); } }, 0.15 + i * 0.1);
         });
@@ -161,7 +169,7 @@
         if (heroMedia.length) tl.to(heroMedia, { clipPath: "inset(0% 0% 0% 0% round 28px)", duration: 1.6, ease: "expo.inOut", stagger: 0.1 }, 0.2);
         if (pops.length) tl.to(pops, { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, stagger: 0.12 }, 1.0);
       }
-      if (mode === "loader") document.addEventListener("site:loaded", function () { gsap.delayedCall(0.25, playHero); }, { once: true });
+      if (mode === "loader") document.addEventListener("site:loaded", playHero, { once: true });
       else if (mode === "enter") gsap.delayedCall(0.55, playHero);
       else playHero();
 
@@ -265,7 +273,6 @@
         setDial(dial, 1);
         ST.create({ trigger: dial, start: "top 75%", end: "bottom 35%", scrub: true,
           onUpdate: function (self) { setDial(dial, Math.max(1, Math.ceil(self.progress * 12))); } });
-        gsap.fromTo(dial.querySelector(".dial__center"), { scale: .6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: dial, start: "top 85%", once: true } });
       });
 
       /* Horizontal "other side" scroll (desktop), native swipe below */
