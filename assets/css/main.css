@@ -887,13 +887,6 @@ html.pt-covered body { overflow: hidden; }
 /* ---------- 9. Inner pages ---------- */
 
 /* Sub-nav (sticky in-page) */
-.subnav { position: sticky; top: calc(var(--frame) + 8px + var(--header-h) + 10px); z-index: 50; display: flex; justify-content: center; pointer-events: none; margin-top: -32px; height: 0; }
-.subnav__bar { pointer-events: auto; display: flex; gap: 4px; padding: 6px; border-radius: 999px; background: rgba(11, 22, 34, .86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--cream); box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .5); overflow-x: auto; scrollbar-width: none; max-width: calc(100vw - 2 * var(--gutter)); opacity: 0; transform: translateY(-10px); transition: opacity .5s, transform .6s var(--ease); }
-.subnav.is-on .subnav__bar { opacity: 1; transform: none; }
-.subnav__bar::-webkit-scrollbar { display: none; }
-.subnav a { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 999px; font-size: 13.5px; font-weight: 550; white-space: nowrap; transition: background .3s, color .3s; }
-.subnav a:hover { background: rgba(246, 240, 230, .1); }
-.subnav a.is-active { background: var(--sun); color: var(--ink); }
 
 /* Page hero: Self-Mastery */
 .smhero { padding-top: calc(var(--header-h) + clamp(56px, 6.4vw, 104px)); padding-bottom: clamp(40px, 4vw, 64px); }
@@ -1487,7 +1480,6 @@ body[data-page="call"] .fab { display: none; }
   .tabs button { flex: 1; padding: 0 10px; font-size: 13.5px; }
   .intake-aside { grid-template-columns: 1fr; }
   .intake-aside .media { display: none; }
-  .subnav { display: none; }
   .collage__tag { right: 0; top: 4%; }
   .quiz { min-height: 0; }
   .option { padding: 14px; gap: 12px; }
@@ -1635,8 +1627,6 @@ body[data-page="call"] .fab { display: none; }
 }
 .intro { align-items: center; }
 .oside--photo::after { background: linear-gradient(180deg, rgba(11, 22, 34, .05) 20%, rgba(11, 22, 34, .55) 55%, rgba(11, 22, 34, .92) 100%); }
-.subnav { align-items: flex-start; }
-.subnav__bar { flex: none; }
 /* Sticky needs a non-scrolling ancestor: clip instead of hidden on the story panel */
 #story.sm-feature { overflow: clip; }
 /* Photo-under-heading splits: the text column spans the full height, top group meets the heading, last group meets the photo */
@@ -2015,3 +2005,39 @@ img[src*="/productive."] { object-position: 54% 0%; }
 img[src*="/positive-thinking."] { object-position: 75% 26%; }
 img[src*="/happy."] { object-position: 53% 0%; }
 img[src*="/find-purpose."] { object-position: 55% 1%; }
+
+/* ---------- 19. Chapter rail (Self-Mastery) ----------
+   A slim rail on the left edge instead of a second menu bar: ticks for each chapter,
+   the current one written vertically above them. Hover or focus opens the full list. */
+.chapters { position: fixed; z-index: 60; left: calc(var(--frame) + 10px); top: 50%; display: none; flex-direction: column; align-items: flex-start; gap: 16px;
+  padding: 14px 12px; border-radius: 20px; color: var(--ink);
+  opacity: 0; visibility: hidden; transform: translate(-14px, -50%);
+  transition: opacity .5s, transform .7s var(--ease), visibility 0s .7s, background .35s, box-shadow .35s, color .4s; }
+.chapters.is-on { opacity: 1; visibility: visible; transform: translate(0, -50%); transition: opacity .5s, transform .7s var(--ease), background .35s, box-shadow .35s, color .4s; }
+.chapters__now { height: 170px; writing-mode: vertical-rl; transform: rotate(180deg); display: flex; align-items: center; gap: 10px; margin-left: 2px;
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; overflow: hidden; color: var(--text-2); }
+.chapters__now b { font-weight: 500; color: var(--ember-deep); }
+.chapters__list { display: flex; flex-direction: column; gap: 2px; }
+.chapters a { display: flex; align-items: center; gap: 12px; height: 20px; font-size: 13.5px; font-weight: 550; letter-spacing: -.005em; white-space: nowrap; }
+.chapters a i { width: 10px; height: 2px; border-radius: 2px; background: currentColor; opacity: .28; flex: none; transition: width .45s var(--ease), opacity .3s, background .3s; }
+.chapters a.is-done i { opacity: .6; }
+.chapters a.is-active i { width: 24px; opacity: 1; background: var(--sun); }
+.chapters a span { opacity: 0; transform: translateX(-6px); pointer-events: none; transition: opacity .3s, transform .45s var(--ease), color .3s; }
+.chapters:hover, .chapters:focus-within { background: rgba(251, 248, 243, .97); box-shadow: 0 24px 60px -28px rgba(11, 22, 34, .4), inset 0 0 0 1px var(--line); }
+.chapters:hover a span, .chapters:focus-within a span { opacity: 1; transform: none; pointer-events: auto; }
+.chapters a:hover span, .chapters a.is-active span { color: var(--ember-deep); }
+.chapters.on-dark { color: var(--cream); }
+.chapters.on-dark .chapters__now { color: rgba(246, 240, 230, .62); }
+.chapters.on-dark .chapters__now b { color: var(--sun); }
+.chapters.on-dark:hover, .chapters.on-dark:focus-within { background: rgba(17, 31, 48, .96); box-shadow: 0 24px 60px -28px rgba(0, 0, 0, .6), inset 0 0 0 1px var(--line-d); }
+.chapters.on-dark a:hover span, .chapters.on-dark a.is-active span { color: var(--sun); }
+@media (min-width: 1101px) { .chapters { display: flex; } }
+@media (prefers-reduced-motion: reduce) { .chapters, .chapters.is-on { transition: opacity .3s, visibility 0s; } }
+/* Rail sits close to the edge with short ticks; on its page the content keeps clear of it */
+.chapters { left: calc(var(--frame) - 2px); }
+.chapters a i { width: 9px; }
+.chapters a.is-active i { width: 18px; }
+@media (min-width: 1101px) {
+  body:has(.chapters) main > section:not(.hero-panel) .wrap { padding-left: max(var(--gutter), 66px); }
+}
+.chapters__now { height: 190px; letter-spacing: .13em; }

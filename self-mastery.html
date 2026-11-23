@@ -31,7 +31,7 @@
   <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
   
-  <link rel="stylesheet" href="assets/css/main.css?v=aa2b95f8">
+  <link rel="stylesheet" href="assets/css/main.css?v=d4495f90">
   <script>
     (function(d){d.classList.add('js');var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;function ink(){var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content','#0b1622')}try{var pt=sessionStorage.getItem('cb_pt');if(pt&&!rm){d.style.backgroundColor='#0b1622';d.classList.add('pt-enter','no-preloader');ink();sessionStorage.removeItem('cb_pt');setTimeout(function(){d.classList.remove('pt-enter')},3200)}else if(d.classList.contains('no-preloader')||sessionStorage.getItem('cb_seen')||rm){d.classList.add('no-preloader')}else{d.classList.add('is-loading');ink()}sessionStorage.setItem('cb_seen','1')}catch(e){d.classList.add('no-preloader')}})(document.documentElement);
   </script>
@@ -169,10 +169,18 @@
       </div>
     </section>
 
-    <nav class="subnav" data-subnav aria-label="On this page">
-      <div class="subnav__bar">
-        <a href="#overview">Overview</a><a href="#who">Who it’s for</a><a href="#different">Why it’s different</a><a href="#how">How it works</a><a href="#weeks">The 12 weeks</a><a href="#included">What’s included</a><a href="#stories">Results</a><a href="#faq">FAQ</a>
-      </div>
+    <nav class="chapters" data-subnav aria-label="On this page">
+      <p class="chapters__now" aria-hidden="true"><b data-ch-num>01</b><span data-ch-label>Overview</span></p>
+      <ol class="chapters__list">
+        <li><a href="#overview"><i aria-hidden="true"></i><span>Overview</span></a></li>
+        <li><a href="#who" data-short="Is it for you"><i aria-hidden="true"></i><span>Who it’s for</span></a></li>
+        <li><a href="#different" data-short="Why different"><i aria-hidden="true"></i><span>Why it’s different</span></a></li>
+        <li><a href="#how"><i aria-hidden="true"></i><span>How it works</span></a></li>
+        <li><a href="#weeks"><i aria-hidden="true"></i><span>The 12 weeks</span></a></li>
+        <li><a href="#included" data-short="Included"><i aria-hidden="true"></i><span>What’s included</span></a></li>
+        <li><a href="#stories"><i aria-hidden="true"></i><span>Results</span></a></li>
+        <li><a href="#faq"><i aria-hidden="true"></i><span>FAQ</span></a></li>
+      </ol>
     </nav>
 
     <!-- OVERVIEW -->
@@ -614,7 +622,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
   <script src="assets/vendor/lenis.min.js?v=79e3a064" defer></script>
   <script src="assets/js/config.js?v=2251cb11" defer></script>
-  <script src="assets/js/site.js?v=802ec158" defer></script>
+  <script src="assets/js/site.js?v=8e562b98" defer></script>
   <script src="assets/js/motion.js?v=4e4da3ec" defer></script>
 </body>
 </html>

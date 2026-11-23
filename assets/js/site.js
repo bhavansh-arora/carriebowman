@@ -61,7 +61,7 @@
     var els = document.elementsFromPoint(window.innerWidth / 2, header.offsetTop + header.offsetHeight / 2);
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
-      if (header.contains(el) || el.closest(".menu, .subnav, .dock, .fab, .scrollbar, .cursor")) continue;
+      if (header.contains(el) || el.closest(".menu, .chapters, .dock, .fab, .scrollbar, .cursor")) continue;
       var sec = el.closest("[data-theme]");
       if (sec) return sec.getAttribute("data-theme") === "dark";
     }
@@ -666,27 +666,41 @@
     });
 
     /* Sticky sub-navigation: visible past the hero, highlights the section in view */
+    /* Chapter rail (Self-Mastery): ticks show progress, the current chapter is written beside them,
+       hovering opens the full list. Visible only while you're inside the chapters. */
     $$("[data-subnav]", root).forEach(function (nav) {
       var links = $$("a", nav);
       var secs = links.map(function (l) { return document.getElementById(l.getAttribute("href").slice(1)); }).filter(Boolean);
-      var bar = $(".subnav__bar", nav);
+      var num = $("[data-ch-num]", nav), label = $("[data-ch-label]", nav);
+      var current = -2;
       function update() {
-        var y = window.scrollY + window.innerHeight * 0.35;
-        var first = secs[0] ? secs[0].getBoundingClientRect().top + window.scrollY : 0;
-        nav.classList.toggle("is-on", window.scrollY + window.innerHeight * 0.5 > first);
-        var active = -1;
-        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top + window.scrollY <= y) active = i; });
-        links.forEach(function (l, i) {
-          var on = i === active;
-          if (on !== l.classList.contains("is-active")) {
-            l.classList.toggle("is-active", on);
-            if (on && bar) bar.scrollTo({ left: l.offsetLeft - 16, behavior: "smooth" });
-          }
-        });
+        if (!secs.length) return;
+        var mid = window.innerHeight * 0.5;
+        var firstTop = secs[0].getBoundingClientRect().top, lastBottom = secs[secs.length - 1].getBoundingClientRect().bottom;
+        nav.classList.toggle("is-on", firstTop < mid && lastBottom > mid);
+        var active = 0;
+        secs.forEach(function (sec, i) { if (sec.getBoundingClientRect().top <= window.innerHeight * 0.4) active = i; });
+        if (active !== current) {
+          current = active;
+          links.forEach(function (l, i) { l.classList.toggle("is-active", i === active); l.classList.toggle("is-done", i < active); });
+          if (num) num.textContent = (active < 9 ? "0" : "") + (active + 1);
+          if (label) label.textContent = links[active].getAttribute("data-short") || links[active].textContent;
+        }
+        /* light or dark section behind the rail */
+        var r = nav.getBoundingClientRect(), dark = false;
+        var els = document.elementsFromPoint(Math.max(2, r.left + 6), Math.round(r.top + r.height / 2));
+        for (var k = 0; k < els.length; k++) {
+          if (nav.contains(els[k])) continue;
+          var t = els[k].closest("[data-theme]");
+          if (t) { dark = t.getAttribute("data-theme") === "dark"; break; }
+        }
+        nav.classList.toggle("on-dark", dark);
       }
-      var h = function () { requestAnimationFrame(update); };
+      var queued = false;
+      var h = function () { if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; update(); }); } };
       window.addEventListener("scroll", h, { passive: true });
-      onCleanup(function () { window.removeEventListener("scroll", h); });
+      window.addEventListener("resize", h);
+      onCleanup(function () { window.removeEventListener("scroll", h); window.removeEventListener("resize", h); });
       update();
     });
 
