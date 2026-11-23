@@ -267,8 +267,10 @@
       /* Carrie never fades (a see-through figure over the sun looks ghostly).
          On Home she rises up from below the frame; elsewhere she's revealed head-first. */
       var riseFromEdge = !!(rise && heroEl);
-      if (rise) gsap.set(rise, riseFromEdge ? { yPercent: 100 } : { yPercent: 12, clipPath: "inset(0% 0% 100% 0%)" });
-      if (heroMedia.length) gsap.set(heroMedia, { clipPath: "inset(100% 0% 0% 0% round 28px)" });
+      if (rise) gsap.set(rise, riseFromEdge ? { yPercent: 100 } : { yPercent: -8, clipPath: "inset(0% 0% 100% 0%)" });
+      var heroMediaImgs = heroMedia.map(function (m) { return m.querySelector("img"); }).filter(Boolean);
+      if (heroMedia.length) gsap.set(heroMedia, { clipPath: "inset(0% 0% 100% 0% round 28px)" });
+      if (heroMediaImgs.length) gsap.set(heroMediaImgs, { yPercent: -8, scale: 1.18 });
 
 
       heroBusy = true;
@@ -306,6 +308,7 @@
         });
         if (rise) tl.to(rise, riseFromEdge ? { yPercent: 0, duration: 1.9 } : { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut" }, 0.3);
         if (heroMedia.length) tl.to(heroMedia, { clipPath: "inset(0% 0% 0% 0% round 28px)", duration: 1.6, ease: "expo.inOut", stagger: 0.1 }, 0.2);
+        if (heroMediaImgs.length) tl.to(heroMediaImgs, { yPercent: 0, scale: 1, duration: 2.1, ease: "expo.out", stagger: 0.1 }, 0.3);
         if (heroBits.length) tl.to(heroBits, { autoAlpha: 1, y: 0, duration: 1.3, stagger: 0.09 }, 0.65);
         if (!heroEl) { if (pops.length) tl.to(pops, { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, stagger: 0.12 }, 1.0); return; }
 
@@ -375,12 +378,12 @@
       /* Image clip reveals */
       $$("[data-clip]", root).forEach(function (el) {
         var img = el.querySelector("img");
-        gsap.fromTo(el, { clipPath: "inset(100% 0% 0% 0%)" }, {
+        gsap.fromTo(el, { clipPath: "inset(0% 0% 100% 0%)" }, {
           clipPath: "inset(0% 0% 0% 0%)", duration: 1.7, ease: "expo.inOut",
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
           onComplete: function () { el.style.clipPath = ""; }
         });
-        if (img) gsap.fromTo(img, { scale: 1.22 }, { scale: 1, duration: 2.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } });
+        if (img) gsap.fromTo(img, { scale: 1.22, yPercent: -8 }, { scale: 1, yPercent: 0, duration: 2.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } });
       });
 
       /* Parallax */
